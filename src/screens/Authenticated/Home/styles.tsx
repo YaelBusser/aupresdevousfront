@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderStyle: 'solid',
     borderColor: 'red',
+    width: '100%',
   },
 });
 

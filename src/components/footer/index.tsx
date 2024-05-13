@@ -20,10 +20,8 @@ const Footer = () => {
   return (
     <View style={styles.containerFooter}>
       <View style={styles.containerNav}>
-        <TouchableOpacity
-          style={styles.iconText}
-          onPress={() => navigation.navigate('Home')}>
-          <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <View style={styles.iconText}>
             <Image
               source={currentRouteName === 'Home' ? searchActive : search}
               style={styles.icon}
@@ -37,10 +35,8 @@ const Footer = () => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.iconText}
-          onPress={() => navigation.navigate('Favoris')}>
-          <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Favoris')}>
+          <View style={styles.iconText}>
             <Image
               source={currentRouteName === 'Favoris' ? favorisActive : favoris}
               style={styles.icon}
@@ -54,10 +50,8 @@ const Footer = () => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.iconText}
-          onPress={() => navigation.navigate('Publier')}>
-          <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Publier')}>
+          <View style={styles.iconText}>
             <Image
               source={currentRouteName === 'Publier' ? publierActive : publier}
               style={styles.icon}
@@ -71,10 +65,8 @@ const Footer = () => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.iconText}
-          onPress={() => navigation.navigate('Messages')}>
-          <View>
+        <TouchableOpacity onPress={() => navigation.navigate('Messages')}>
+          <View style={styles.iconText}>
             <Image
               source={
                 currentRouteName === 'Messages' ? messagesActive : messages
@@ -90,10 +82,8 @@ const Footer = () => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.iconText}
-          onPress={() => navigation.navigate('MonCompte')}>
-          <View>
+        <TouchableOpacity onPress={() => navigation.navigate('MonCompte')}>
+          <View style={styles.iconText}>
             <Image
               source={currentRouteName === 'MonCompte' ? compteActive : compte}
               style={styles.icon}

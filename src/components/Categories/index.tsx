@@ -1,4 +1,4 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,7 +8,7 @@ const Categories = () => {
   const pathIcon = '../../assets/icons/categories/';
   const getAllCategories = () => {
     axios
-      .get('http://10.0.2.2/categories')
+      .get('http://10.0.2.2:4001/categories')
       .then(res => {
         setAllCategories(res.data);
       })
@@ -22,10 +22,12 @@ const Categories = () => {
   return (
     <>
       {allCategories.map((category: any, index) => (
-        <View key={index} style={styles.category}>
-          <Image source={{uri: category.icon}} style={styles.icon} />
-          <Text key={index}>{category.label}</Text>
-        </View>
+        <TouchableOpacity key={index}>
+          <View style={styles.category}>
+            <Image source={{uri: category.icon}} style={styles.icon} />
+            <Text key={index}>{category.label}</Text>
+          </View>
+        </TouchableOpacity>
       ))}
     </>
   );

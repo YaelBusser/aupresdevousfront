@@ -4,6 +4,7 @@ import styles from './styles';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import stylesMain from "../../../../styles/main";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -57,8 +58,8 @@ export default function Login() {
         secureTextEntry
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Se connecter</Text>
+      <TouchableOpacity style={stylesMain.button} onPress={handleLogin}>
+        <Text style={stylesMain.buttonText}>Se connecter</Text>
       </TouchableOpacity>
     </View>
   );
