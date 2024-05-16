@@ -55,6 +55,7 @@ const MonCompte = () => {
           })
           .then(response => {
             console.log(response.data);
+            setImageUri(`http://10.0.2.2:4001/users/avatar/${user.id}.jpg`);
           })
           .catch(error => {
             console.log(error);
@@ -100,10 +101,10 @@ const MonCompte = () => {
           <View style={{position: 'relative'}}>
             <Image
               source={
-                imageUri
-                  ? {uri: imageUri}
-                  : user.avatar
+                user.avatar !== undefined
                   ? {uri: `http://10.0.2.2:4001/${user.avatar}`}
+                  : imageUri
+                  ? {uri: imageUri}
                   : defaultProfile
               }
               style={styles.imageProfile}
