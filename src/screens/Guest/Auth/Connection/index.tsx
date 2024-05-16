@@ -4,7 +4,7 @@ import styles from './styles';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import stylesMain from "../../../../styles/main";
+import stylesMain from '../../../../styles/main';
 
 export default function Login() {
   const navigation = useNavigation();
@@ -27,8 +27,8 @@ export default function Login() {
           email,
           password,
         })
-        .then(response => {
-          AsyncStorage.setItem('token', response.data.token);
+        .then(async response => {
+          await AsyncStorage.setItem('token', response.data.token);
           navigation.navigate('HomeGuest');
         })
         .catch(err => {
