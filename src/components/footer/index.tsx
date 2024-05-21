@@ -5,12 +5,12 @@ import {useRoute} from '@react-navigation/native';
 const Footer = () => {
   const compte = require('../../assets/icons/nav/compte.png');
   const compteActive = require('../../assets/icons/nav/compte-active.png');
-  const favoris = require('../../assets/icons/nav/favoris.png');
-  const favorisActive = require('../../assets/icons/nav/favoris-active.png');
+  const mesAnnonces = require('../../assets/icons/nav/MesAnnonces.png');
+  const mesAnnoncesActive = require('../../assets/icons/nav/MesAnnonces-active.png');
   const messages = require('../../assets/icons/nav/messages.png');
   const messagesActive = require('../../assets/icons/nav/messages-active.png');
-  const publier = require('../../assets/icons/nav/publier.png');
-  const publierActive = require('../../assets/icons/nav/publier-active.png');
+  const create = require('../../assets/icons/nav/publier.png');
+  const createActive = require('../../assets/icons/nav/publier-active.png');
   const search = require('../../assets/icons/nav/search.png');
   const searchActive = require('../../assets/icons/nav/search-active.png');
 
@@ -35,10 +35,14 @@ const Footer = () => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Favoris')}>
+        <TouchableOpacity onPress={() => navigation.navigate('MesAnnonces')}>
           <View style={styles.iconText}>
             <Image
-              source={currentRouteName === 'Favoris' ? favorisActive : favoris}
+              source={
+                currentRouteName === 'MesAnnonces'
+                  ? mesAnnoncesActive
+                  : mesAnnonces
+              }
               style={styles.icon}
             />
             <Text
@@ -46,23 +50,16 @@ const Footer = () => {
                 styles.text,
                 currentRouteName === 'Favoris' ? styles.textActive : null,
               ]}>
-              Favoris
+              Mes annonces
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Publier')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Create')}>
           <View style={styles.iconText}>
             <Image
-              source={currentRouteName === 'Publier' ? publierActive : publier}
+              source={currentRouteName === 'Create' ? createActive : create}
               style={styles.icon}
             />
-            <Text
-              style={[
-                styles.text,
-                currentRouteName === 'Publier' ? styles.textActive : null,
-              ]}>
-              Publier
-            </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Messages')}>

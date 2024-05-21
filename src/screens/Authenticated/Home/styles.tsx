@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderStyle: 'solid',
     borderColor: 'red',
+    marginTop: 100,
   },
   searchBar: {
     backgroundColor: '#F3F8FE',

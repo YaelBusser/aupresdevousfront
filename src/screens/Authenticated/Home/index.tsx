@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, ScrollView} from 'react-native';
 
 import styles from './styles.tsx';
 import stylesMain from '../../../styles/main';
@@ -10,13 +10,11 @@ import Categories from '../../../components/Categories';
 
 export default function Home({navigation}: any) {
   const [searchQuery, setSearchQuery] = useState('');
-
-  // @ts-ignore
   const onChangeSearch = query => setSearchQuery(query);
   return (
     <>
       <Header />
-      <View style={stylesMain.body}>
+      <ScrollView contentContainerStyle={stylesMain.body}>
         <View style={styles.content}>
           <Text>Page protégée - AuthHome</Text>
           <Searchbar
@@ -32,7 +30,7 @@ export default function Home({navigation}: any) {
             <Categories />
           </View>
         </View>
-      </View>
+      </ScrollView>
       <Footer />
     </>
   );

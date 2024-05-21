@@ -8,17 +8,21 @@ import AuthConnection from '../screens/Guest/Auth/Connection';
 import AuthRegistration from '../screens/Guest/Auth/Registration';
 import GoBack from '../components/goBack';
 import Home from '../screens/Authenticated/Home';
-import Favoris from '../screens/Authenticated/Favoris';
-import Publier from '../screens/Authenticated/Publier';
+import MesAnnonces from '../screens/Authenticated/MesAnnonces';
+import Create from '../screens/Authenticated/Create';
 import Messages from '../screens/Authenticated/Messages';
 import MonCompte from '../screens/Authenticated/MonCompte';
+import CreateDemande from '../screens/Authenticated/Create/CreateDemande';
+import CreateService from '../screens/Authenticated/Create/CreateService';
 type RootStackParamList = {
   HomeGuest: undefined;
   LoginGuest: undefined;
   RegisterGuest: undefined;
   Home: undefined;
-  Favoris: undefined;
-  Publier: undefined;
+  MesAnnonces: undefined;
+  Create: undefined;
+  CreateDemande: undefined;
+  createService: undefined;
   Messages: undefined;
   MonCompte: undefined;
 };
@@ -86,16 +90,29 @@ const Routes = () => {
           })}
         />
         <Stack.Screen
-          name="Favoris"
-          component={Favoris}
+          name="MesAnnonces"
+          component={MesAnnonces}
           options={({navigation}) => ({
             headerShown: false,
           })}
         />
-
         <Stack.Screen
-          name="Publier"
-          component={Publier}
+          name="Create"
+          component={Create}
+          options={({navigation}) => ({
+            headerShown: false,
+          })}
+        />
+        <Stack.Screen
+          name="CreateDemande"
+          component={CreateDemande}
+          options={({navigation}) => ({
+            headerShown: false,
+          })}
+        />
+        <Stack.Screen
+          name="CreateService"
+          component={CreateService}
           options={({navigation}) => ({
             headerShown: false,
           })}

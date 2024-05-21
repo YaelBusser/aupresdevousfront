@@ -4,12 +4,13 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 50,
-    marginLeft: 20,
-    marginBottom: 50,
+    position: 'absolute',
+    top: 10,
+    left: 10,
     width: 50,
     height: 50,
     padding: 0,
+    zIndex: 999,
   },
   icon: {
     width: '100%',

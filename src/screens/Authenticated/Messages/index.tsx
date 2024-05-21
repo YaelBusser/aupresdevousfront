@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import React from 'react';
 import Header from '../../../components/header';
 import Footer from '../../../components/footer';
@@ -8,9 +8,9 @@ const Messages = () => {
   return (
     <>
       <Header />
-      <View style={stylesMain.body}>
+      <ScrollView contentContainerStyle={stylesMain.body}>
         <Text>Messages</Text>
-      </View>
+      </ScrollView>
       <Footer />
     </>
   );

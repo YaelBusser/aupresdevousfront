@@ -1,11 +1,9 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useEffect, useState} from 'react';
 const Categories = () => {
   const [allCategories, setAllCategories] = useState([]);
-  const pathIcon = '../../assets/icons/categories/';
   const getAllCategories = () => {
     axios
       .get('http://10.0.2.2:4001/categories')

@@ -22,7 +22,14 @@ const stylesMain = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    marginTop: 20,
+  },
+  buttonRed: {
+    width: '100%',
+    height: 40,
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
   },
   buttonText: {
     color: 'white',
