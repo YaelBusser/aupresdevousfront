@@ -1,100 +1,107 @@
-import React, { useState } from "react";
-import { View, Text, Alert } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { TextInput, Button } from "react-native-paper";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import styles from "./styles.tsx";
+import React, {useState} from 'react';
+import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
+import styles from './styles';
+import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
 
-type ConnectionProps = {
-  navigation: StackNavigationProp<any>;
-};
+export default function Register() {
+  const navigation = useNavigation();
 
-const AuthRegistration: React.FC<ConnectionProps> = ({ navigation }) => {
-  const [nom, setNom] = useState("");
-  const [prenom, setPrenom] = useState("");
-  const [email, setEmail] = useState("");
-  const [mdp, setMdp] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleNomChange = (nom: string) => setNom(nom);
-  const handlePrenomChange = (prenom: string) => setPrenom(prenom);
-  const handleEmailChange = (email: string) => setEmail(email);
-  const handleMdpChange = (mdp: string) => setMdp(mdp);
-
-  const handleRegistration = async () => {
+  const handleRegister = async () => {
     try {
-      const response = await fetch("http://192.168.78.112:8080/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ nom, prenom, mail: email, mdp })
-      });
-      const data = await response.json();
-      if (response.ok) {
-        Alert.alert("Inscription réussie", "Vous pouvez maintenant vous connecter.");
-        navigation.navigate("Login"); // Rediriger vers la page de connexion
-      } else {
-        Alert.alert("Erreur", data.message || "Une erreur est survenue lors de l'inscription.");
+      setError('');
+
+      if (!lastName || !firstName || !email || !password || !confirmPassword) {
+        setError('Veuillez remplir tous les champs.');
+        return;
       }
-    } catch (error) {
-      console.error("Erreur lors de la requête d'inscription : ", error);
-      Alert.alert("Erreur", "Une erreur est survenue lors de la requête d'inscription.");
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        setError('Veuillez saisir une adresse e-mail valide.');
+        return;
+      }
+
+      const passwordRegex =
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+|~\-={}[\]:";'<>?,.\/])(?=.*[^\s]).{8,}$/;
+      if (!passwordRegex.test(password)) {
+        setError(
+          'Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un caractère spécial et un chiffre.',
+        );
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        setError('Les mots de passe ne correspondent pas.');
+        return;
+      }
+
+      const response = await axios.post('http://10.0.2.2:4001/auth/register', {
+        name: lastName,
+        firstname: firstName,
+        email,
+        password,
+      });
+
+      console.log('Inscription réussie:', response.data.message);
+      Alert.alert('Inscription réussie', response.data.message, [
+        {text: 'OK', onPress: () => navigation.navigate('LoginGuest')},
+      ]);
+    } catch (err: any) {
+      console.error("Erreur lors de l'inscription:", err);
+      setError(
+        err.response?.data?.message ||
+          "Erreur lors de l'inscription. Veuillez réessayer.",
+      );
     }
   };
-
   return (
-    <View>
-      <View style={styles.container}>
-        <View style={styles.containerForm}>
-          <Text style={styles.title}>S'inscrire</Text>
-          <TextInput
-            label="Nom"
-            placeholder="Nom"
-            placeholderTextColor="#8391A1"
-            outlineColor={Colors.red}
-            value={nom}
-            onChangeText={handleNomChange}
-            mode="outlined"
-            style={styles.textInputs}
-          />
-          <TextInput
-            label="Prénom"
-            placeholder="Prénom"
-            placeholderTextColor="#8391A1"
-            outlineColor={Colors.red}
-            value={prenom}
-            onChangeText={handlePrenomChange}
-            mode="outlined"
-            style={styles.textInputs}
-          />
-          <TextInput
-            label="Adresse mail"
-            placeholder="Adresse mail"
-            placeholderTextColor="#8391A1"
-            outlineColor={Colors.red}
-            value={email}
-            onChangeText={handleEmailChange}
-            mode="outlined"
-            style={styles.textInputs}
-          />
-          <TextInput
-            label="Mot de passe"
-            placeholder="Mot de passe"
-            placeholderTextColor="#8391A1"
-            outlineColor={Colors.red}
-            secureTextEntry
-            value={mdp}
-            onChangeText={handleMdpChange}
-            mode="outlined"
-            style={styles.textInputs}
-          />
-          <Button mode="contained" style={styles.buttonForm} onPress={handleRegistration}>
-            S'inscrire
-          </Button>
-        </View>
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Inscription</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Nom"
+        value={lastName}
+        onChangeText={setLastName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Prénom"
+        value={firstName}
+        onChangeText={setFirstName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Adresse email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Mot de passe"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Confirmer le mot de passe"
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        secureTextEntry
+      />
+      {error ? <Text style={styles.error}>{error}</Text> : null}
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.buttonText}>S'inscrire</Text>
+      </TouchableOpacity>
     </View>
   );
-};
-
-export default AuthRegistration;
+}

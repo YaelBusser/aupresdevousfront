@@ -16,13 +16,14 @@ const Categories = () => {
   useEffect(() => {
     getAllCategories();
   }, []);
-
   return (
     <>
       {allCategories.map((category: any, index) => (
         <TouchableOpacity key={index}>
           <View style={styles.category}>
-            <Image source={{uri: category.icon}} style={styles.icon} />
+            <View style={styles.blockIcon}>
+              <Image source={{uri: category.icon}} style={styles.icon} />
+            </View>
             <Text key={index}>{category.label}</Text>
           </View>
         </TouchableOpacity>

@@ -1,17 +1,15 @@
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Header from '../../../components/header';
 import Footer from '../../../components/footer';
 import styles from './styles';
-import stylesMain, {primaryColor} from '../../../styles/main';
+import stylesMain from '../../../styles/main';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {useFocusEffect} from '@react-navigation/native';
-
-const MesAnnonces = () => {
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+const MesAnnonces = ({navigation}: any) => {
   const [user, setUser] = useState<any>(null);
-  const [annonces, setAnnonces] = useState<any>({});
-
+  const [annonces, setAnnonces] = useState<any>();
   const getUserData = () => {
     AsyncStorage.getItem('token')
       .then(token => {
@@ -61,9 +59,9 @@ const MesAnnonces = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Mes demandes</Text>
             <View style={styles.containerItems}>
-              {annonces.demandes ? (
+              {annonces?.demandes[0] !== undefined ? (
                 annonces.demandes.map((demande: any, index: number) => (
-                  <View
+                  <TouchableOpacity
                     key={demande.id}
                     style={[
                       styles.containerItem,
@@ -75,11 +73,16 @@ const MesAnnonces = () => {
                             borderBottomWidth: 1,
                             borderBottomColor: 'grey',
                           },
-                    ]}>
-                    <Image
-                      source={{uri: `http://10.0.2.2:4001/${demande.image}`}}
-                      style={styles.imageItem}
-                    />
+                    ]}
+                    onPress={() =>
+                      navigation.navigate('DetailsMonAnnonce', {id: demande.id})
+                    }>
+                    <View>
+                      <Image
+                        source={{uri: `http://10.0.2.2:4001/${demande.image}`}}
+                        style={styles.imageItem}
+                      />
+                    </View>
                     <View style={styles.infosItem}>
                       <Text style={styles.titleItem} numberOfLines={1}>
                         {demande.titre}
@@ -88,7 +91,7 @@ const MesAnnonces = () => {
                         {demande.category.label}
                       </Text>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 ))
               ) : (
                 <Text>Vous n'avez pas de demandes...</Text>
@@ -98,9 +101,9 @@ const MesAnnonces = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Mes prestations</Text>
             <View style={styles.containerItems}>
-              {annonces.services ? (
+              {annonces?.services[0] !== undefined ? (
                 annonces.services.map((service: any, index: number) => (
-                  <View
+                  <TouchableOpacity
                     key={service.id}
                     style={[
                       styles.containerItem,
@@ -112,7 +115,10 @@ const MesAnnonces = () => {
                             borderBottomWidth: 1,
                             borderBottomColor: 'grey',
                           },
-                    ]}>
+                    ]}
+                    onPress={() =>
+                      navigation.navigate('DetailsMonAnnonce', {id: service.id})
+                    }>
                     <Image
                       source={{uri: `http://10.0.2.2:4001/${service.image}`}}
                       style={styles.imageItem}
@@ -125,10 +131,10 @@ const MesAnnonces = () => {
                         {service.category.label}
                       </Text>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 ))
               ) : (
-                <Text>Vous n'avez pas de demandes...</Text>
+                <Text>Vous n'avez pas de services...</Text>
               )}
             </View>
           </View>

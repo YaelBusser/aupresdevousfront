@@ -7,15 +7,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
+import v4 from 'react-native-uuid';
+
 const MonCompte = () => {
   const navigation = useNavigation();
   const logoLogout = require('../../../assets/icons/logout.png');
   const defaultProfile = require('../../../assets/images/defaultProfile.png');
   const iconEdit = require('../../../assets/icons/edit.png');
+
   const [imageUri, setImageUri] = useState<string>('');
   const [token, setToken] = useState<string | null>('');
   const [user, setUser] = useState<any>({});
-  let formData: any;
+  const [uuid, setUuid] = useState<string>(v4.v4());
+
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('token');
@@ -24,6 +28,7 @@ const MonCompte = () => {
       console.log(error);
     }
   };
+
   const uploadImage = () => {
     ImagePicker.openPicker({
       width: 100,
@@ -32,18 +37,15 @@ const MonCompte = () => {
       includeBase64: true,
       freeStyleCropEnabled: true,
       cropperCircleOverlay: true,
-    }).then(image => {
-      console.log(image);
-      if ('data' in image) {
-        const data = `data:${image.mime};base64,${image.data}`;
-        setImageUri(data);
-        formData = new FormData();
+    })
+      .then(image => {
+        const formData = new FormData();
         formData.append('avatar', {
           uri: image.path,
-          type: image.mime,
-          name: `${user.id}.jpg`,
+          type: 'image/jpg',
+          name: `${uuid}.jpg`,
         });
-        formData.append('userId', user.id);
+        formData.append('userId', user?.id);
         axios
           .post('http://10.0.2.2:4001/profile/edit/avatar', formData, {
             headers: {
@@ -52,14 +54,21 @@ const MonCompte = () => {
           })
           .then(response => {
             console.log(response.data);
-            setImageUri(`http://10.0.2.2:4001/users/avatar/${user.id}.jpg`);
+            getUserData();
           })
           .catch(error => {
             console.log(error);
           });
-      }
-    });
+      })
+      .catch(error => {
+        if (error.message === 'User cancelled image selection') {
+          console.log('User cancelled image selection');
+        } else {
+          console.log(error);
+        }
+      });
   };
+
   const getUserData = () => {
     AsyncStorage.getItem('token')
       .then(token => {
@@ -69,24 +78,29 @@ const MonCompte = () => {
           },
         });
       })
-      .then(response => {
-        setUser(response.data.user);
+      .then(res => {
+        setUser(res.data.user);
+        setImageUri(`http://10.0.2.2:4001/${res.data.user.avatar}`);
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
       });
   };
+
   const getToken = async () => {
     setToken(await AsyncStorage.getItem('token'));
   };
+
   useEffect(() => {
     getToken();
   }, []);
+
   useFocusEffect(
     React.useCallback(() => {
       getUserData();
     }, []),
   );
+
   return (
     <>
       <ScrollView contentContainerStyle={stylesMain.body}>
@@ -98,10 +112,8 @@ const MonCompte = () => {
           <View style={{position: 'relative'}}>
             <Image
               source={
-                user.avatar !== undefined
+                user?.avatar
                   ? {uri: `http://10.0.2.2:4001/${user.avatar}`}
-                  : imageUri
-                  ? {uri: imageUri}
                   : defaultProfile
               }
               style={styles.imageProfile}
@@ -120,4 +132,5 @@ const MonCompte = () => {
     </>
   );
 };
+
 export default MonCompte;

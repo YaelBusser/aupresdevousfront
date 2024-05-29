@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {primaryColor, primaryFont} from '../../../../styles/main';
+import {primaryColor, primaryFont, secondaryColor} from '../../../../styles/main';
 
 const styles = StyleSheet.create({
   containerContent: {
@@ -52,9 +52,19 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
   },
-  icon: {
+  blockIcon: {
     width: 42,
     height: 42,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: secondaryColor,
+    borderRadius: 50,
+  },
+  icon: {
+    width: 20,
+    height: 20,
   },
   categoryLabel: {
     color: 'black',

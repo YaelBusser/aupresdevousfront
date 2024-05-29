@@ -36,7 +36,7 @@ export default function Login() {
         });
     } catch (error: any) {
       console.log(error);
-      setError(error.reseponse?.data.message || 'Erreur lors de la connexion.');
+      setError(error.response?.data.message || 'Erreur lors de la connexion.');
     }
   };
 

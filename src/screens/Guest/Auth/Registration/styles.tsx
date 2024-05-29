@@ -1,32 +1,46 @@
-import {StyleSheet} from "react-native";
-import {Colors} from "react-native/Libraries/NewAppScreen";
+import {StyleSheet} from 'react-native';
+import {primaryColor} from '../../../../styles/main';
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: "center"
-    },
-    containerForm: {
-        width: "80%"
-    },
-    title: {
-        fontSize: 32,
-        color: Colors.black
-    },
-    textInputs: {
-        marginBottom: 50,
-    },
-    textInputsOutline: {
-        borderColor: Colors.red,
-        borderStyle: "solid",
-        borderBlockColor: Colors.green,
-        borderWidth: 1,
-        backgroundColor: Colors.transparent,
-    },
-    buttonForm: {
-        padding: 10,
-        borderRadius: 10,
-        backgroundColor: "#196EEE"
-    }
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: 'white',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  input: {
+    width: '100%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  button: {
+    width: '100%',
+    height: 40,
+    backgroundColor: primaryColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  error: {
+    color: 'red',
+    marginBottom: 10,
+  },
 });
 
 export default styles;

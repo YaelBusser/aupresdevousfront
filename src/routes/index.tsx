@@ -14,17 +14,23 @@ import Messages from '../screens/Authenticated/Messages';
 import MonCompte from '../screens/Authenticated/MonCompte';
 import CreateDemande from '../screens/Authenticated/Create/CreateDemande';
 import CreateService from '../screens/Authenticated/Create/CreateService';
+import DetailsMonAnnonce from '../screens/Authenticated/MesAnnonces/Details';
+import HomeCategories from '../screens/Authenticated/Home/Categories';
+import DetailsAnnonce from '../screens/Authenticated/Home/DetailsAnnonce';
 type RootStackParamList = {
   HomeGuest: undefined;
   LoginGuest: undefined;
   RegisterGuest: undefined;
   Home: undefined;
+  HomeCategories: undefined;
+  DetailsAnnonce: undefined;
   MesAnnonces: undefined;
   Create: undefined;
   CreateDemande: undefined;
   createService: undefined;
   Messages: undefined;
   MonCompte: undefined;
+  DetailsMonAnnonce: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -90,8 +96,29 @@ const Routes = () => {
           })}
         />
         <Stack.Screen
+          name="HomeCategories"
+          component={HomeCategories}
+          options={({navigation}) => ({
+            headerShown: false,
+          })}
+        />
+        <Stack.Screen
+          name="DetailsAnnonce"
+          component={DetailsAnnonce}
+          options={({navigation}) => ({
+            headerShown: false,
+          })}
+        />
+        <Stack.Screen
           name="MesAnnonces"
           component={MesAnnonces}
+          options={({navigation}) => ({
+            headerShown: false,
+          })}
+        />
+        <Stack.Screen
+          name="DetailsMonAnnonce"
+          component={DetailsMonAnnonce}
           options={({navigation}) => ({
             headerShown: false,
           })}

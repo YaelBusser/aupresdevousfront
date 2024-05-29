@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {secondaryColor} from '../../styles/main';
 
 const styles = StyleSheet.create({
   category: {
@@ -12,9 +13,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  blockIcon: {
+    width: 52,
+    height: 52,
+    padding: 20,
+    backgroundColor: secondaryColor,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+  },
   icon: {
-    width: 42,
-    height: 42,
+    width: 20,
+    height: 20,
+    zIndex: 5,
   },
 });
 

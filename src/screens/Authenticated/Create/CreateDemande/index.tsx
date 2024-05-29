@@ -259,7 +259,9 @@ const CreateDemande = ({navigation}: any) => {
                       setIdCategory(cat.id);
                       setCategoryError('');
                     }}>
-                    <Image source={{uri: cat.icon}} style={styles.icon} />
+                    <View style={styles.blockIcon}>
+                      <Image source={{uri: cat.icon}} style={styles.icon} />
+                    </View>
                     <Text
                       style={[
                         styles.categoryLabel,

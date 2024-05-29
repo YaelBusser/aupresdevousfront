@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   imageItem: {
-    width: 120,
+    width: 150,
     height: 100,
     borderRadius: 10,
   },
