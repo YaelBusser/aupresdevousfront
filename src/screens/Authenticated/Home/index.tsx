@@ -168,17 +168,19 @@ export default function Home({route, navigation}: any) {
                 </View>
                 <View style={styles.radioButtonContainer}>
                   <RadioButton value="Prestations" color={primaryColor} />
-                  <Text onPress={() => filterAds('Prestations')}>Prestations</Text>
+                  <Text onPress={() => filterAds('Prestations')}>
+                    Prestations
+                  </Text>
                 </View>
               </View>
             </RadioButton.Group>
           </View>
+          {category.length > 0 && category !== 'Tout' && (
+            <Text style={styles.titleCategory}>{category}...</Text>
+          )}
           {(filter === 'Tous' || filter === 'Demandes') && (
             <View style={styles.blockAnnonces}>
-              <Text style={styles.typeAnnonce}>Demandes</Text>
-              {category.length > 0 && category !== 'Tout' && (
-                <Text style={styles.titleCategory}>{category}...</Text>
-              )}
+              <Text style={styles.typeAnnonce}>Annonces demandeurs</Text>
               {loading && <Text style={{marginLeft: 20}}>Chargement...</Text>}
               {error && (
                 <Text style={{marginLeft: 20, color: 'red'}}>{error}</Text>
@@ -200,7 +202,7 @@ export default function Home({route, navigation}: any) {
                           source={{uri: `http://10.0.2.2:4001/${item.image}`}}
                           style={styles.adImage}
                         />
-                        <Text style={styles.titreAnnonce}>{item.titre}</Text>
+                        <Text numberOfLines={1} style={styles.titreAnnonce}>{item.titre}</Text>
                         <Text style={styles.categoryAnnonce}>
                           {item.category.label}
                         </Text>
@@ -226,10 +228,7 @@ export default function Home({route, navigation}: any) {
           )}
           {(filter === 'Tous' || filter === 'Prestations') && (
             <View style={styles.blockAnnonces}>
-              <Text style={styles.typeAnnonce}>Prestations</Text>
-              {category.length > 0 && category !== 'Tout' && (
-                <Text style={styles.titleCategory}>{category}...</Text>
-              )}
+              <Text style={styles.typeAnnonce}>Annonces prestataires</Text>
               {loading && <Text style={{marginLeft: 20}}>Chargement...</Text>}
               {error && (
                 <Text style={{marginLeft: 20, color: 'red'}}>{error}</Text>
@@ -251,7 +250,7 @@ export default function Home({route, navigation}: any) {
                           source={{uri: `http://10.0.2.2:4001/${item.image}`}}
                           style={styles.adImage}
                         />
-                        <Text style={styles.titreAnnonce}>{item.titre}</Text>
+                        <Text numberOfLines={1} style={styles.titreAnnonce}>{item.titre}</Text>
                         <Text style={styles.categoryAnnonce}>
                           {item.category.label}
                         </Text>
@@ -271,7 +270,7 @@ export default function Home({route, navigation}: any) {
                   )}
                 />
               ) : (
-                <Text style={{marginLeft: 20}}>Aucune demande trouvée</Text>
+                <Text style={{marginLeft: 20}}>Aucune prestation trouvée</Text>
               )}
             </View>
           )}

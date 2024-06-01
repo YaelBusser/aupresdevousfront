@@ -17,6 +17,7 @@ import CreateService from '../screens/Authenticated/Create/CreateService';
 import DetailsMonAnnonce from '../screens/Authenticated/MesAnnonces/Details';
 import HomeCategories from '../screens/Authenticated/Home/Categories';
 import DetailsAnnonce from '../screens/Authenticated/Home/DetailsAnnonce';
+import MessagesSendMessages from '../screens/Authenticated/Messages/SendMessage';
 type RootStackParamList = {
   HomeGuest: undefined;
   LoginGuest: undefined;
@@ -29,6 +30,7 @@ type RootStackParamList = {
   CreateDemande: undefined;
   createService: undefined;
   Messages: undefined;
+  MessagesSendMessages: undefined;
   MonCompte: undefined;
   DetailsMonAnnonce: undefined;
 };
@@ -147,6 +149,13 @@ const Routes = () => {
         <Stack.Screen
           name="Messages"
           component={Messages}
+          options={({navigation}) => ({
+            headerShown: false,
+          })}
+        />
+        <Stack.Screen
+          name="MessagesSendMessages"
+          component={MessagesSendMessages}
           options={({navigation}) => ({
             headerShown: false,
           })}

@@ -1,5 +1,9 @@
 import {StyleSheet} from 'react-native';
-import {primaryColor, secondaryColor, tertiaryColor} from "../../../styles/main";
+import {
+  primaryColor,
+  secondaryColor,
+  tertiaryColor,
+} from '../../../styles/main';
 
 const styles = StyleSheet.create({
   content: {
@@ -64,11 +68,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   titleCategory: {
-    fontSize: 24,
+    fontSize: 32,
     color: primaryColor,
     fontWeight: 'bold',
     marginLeft: 20,
-    marginBottom: 20,
+    marginBottom: 0,
+    marginTop: 20,
   },
   contentAnnonces: {
     width: '100%',
@@ -111,9 +116,10 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   typeAnnonce: {
-    fontSize: 32,
+    fontSize: 24,
     color: 'black',
     marginLeft: 20,
+    marginBottom: 10,
   },
   filterContainer: {
     width: '90%',

@@ -66,6 +66,9 @@ const stylesMain = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
   },
+  errorText: {
+    color: 'red',
+  },
 });
 
 export default stylesMain;

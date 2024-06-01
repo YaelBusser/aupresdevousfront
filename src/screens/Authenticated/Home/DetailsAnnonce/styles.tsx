@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
   description: {
     textAlign: 'justify',
     color: 'black',
+    fontSize: 16,
   },
   edit: {
     width: 50,
@@ -130,6 +131,10 @@ const styles = StyleSheet.create({
     bottom: 200,
     zIndex: 2,
     width: 200,
+  },
+  contactButton: {
+    width: '90%',
+    marginTop: 20,
   },
 });
 

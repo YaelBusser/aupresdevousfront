@@ -1,15 +1,60 @@
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import stylesMain from '../../../../styles/main';
 import styles from './styles';
 import GoBack from '../../../../components/goBack';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
+import {useFocusEffect} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DetailsAnnonce = ({route, navigation}: any) => {
   const [annonce, setAnnonce] = useState<any>();
-
+  const [user, setUser] = useState<any>({});
+  const [contactExists, setContactExists] = useState<boolean>();
   const {idAnnonce}: any = route.params;
+
+  const createAnnoncesContacts = async () => {
+    let id_demandeur;
+    let id_prestataire;
+    if (annonce?.types_annonce?.label === 'Demande') {
+      id_demandeur = annonce?.user?.id;
+      id_prestataire = user?.id;
+    } else if (annonce?.types_annonce?.label === 'Prestation') {
+      id_demandeur = user?.id;
+      id_prestataire = annonce?.user?.id;
+    }
+    await axios
+      .post('http://10.0.2.2:4001/annoncesContacts/create', {
+        id_annonce: idAnnonce,
+        id_demandeur: id_demandeur,
+        id_prestataire: id_prestataire,
+      })
+      .then((res: any) => {
+        Alert.alert('Contact réussi', res.data.message, [
+          {
+            text: 'OK',
+            onPress: () =>
+              navigation.navigate('MessagesSendMessages', {
+                annonceId: annonce?.id,
+                annonceUserAvatar: annonce?.user?.avatar,
+                annonceUserFirstName: annonce?.user?.firstname,
+                annonceUserName: annonce?.user?.name,
+              }),
+          },
+        ]);
+      })
+      .catch(err => {
+        console.error('Error sending message:', err);
+      });
+  };
 
   useEffect(() => {
     axios
@@ -23,8 +68,45 @@ const DetailsAnnonce = ({route, navigation}: any) => {
           err,
         );
       });
-  }, [idAnnonce]);
+    if (idAnnonce && user?.id) {
+      axios
+        .get('http://10.0.2.2:4001/annoncesContacts', {
+          params: {
+            id_annonce: idAnnonce,
+            id_user: user?.id,
+          },
+        })
+        .then((res: any) => {
+          setContactExists(res.data.contactExists);
+        })
+        .catch(err => {
+          console.error('Error:', err);
+        });
+    }
+  }, [annonce?.types_annonce?.label, idAnnonce, user?.id]);
 
+  const getUserData = () => {
+    AsyncStorage.getItem('token')
+      .then(token => {
+        return axios.get('http://10.0.2.2:4001/profile', {
+          headers: {
+            Authorization: `${token}`,
+          },
+        });
+      })
+      .then(res => {
+        setUser(res.data.user);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getUserData();
+    }, []),
+  );
   return (
     <ScrollView contentContainerStyle={stylesMain.body}>
       <GoBack navigation={navigation} />
@@ -65,6 +147,26 @@ const DetailsAnnonce = ({route, navigation}: any) => {
             <View style={styles.infosAnnonce}>
               <Text style={styles.description}>{annonce?.description}</Text>
             </View>
+          </View>
+          <View style={styles.contactButton}>
+            <TouchableOpacity
+              onPress={async () => {
+                if (contactExists) {
+                  navigation.navigate('MessagesSendMessages', {
+                    annonceId: annonce?.id,
+                    annonceUserAvatar: annonce?.user?.avatar,
+                    annonceUserFirstName: annonce?.user?.firstname,
+                    annonceUserName: annonce?.user?.name,
+                  });
+                } else {
+                  await createAnnoncesContacts();
+                }
+              }}
+              style={[stylesMain.button, {height: 50}]}>
+              <Text style={[stylesMain.buttonText, {fontSize: 18}]}>
+                {contactExists ? 'Envoyer un message' : 'Contacter'}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
