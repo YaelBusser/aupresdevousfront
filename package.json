@@ -20,8 +20,10 @@
     "@react-navigation/native-stack": "^6.9.26",
     "@react-navigation/stack": "^6.3.29",
     "axios": "^1.6.8",
+    "engine.io-client": "^6.5.3",
     "i": "^0.3.7",
     "jwt-decode": "^4.0.0",
+    "moment": "^2.30.1",
     "npm": "^10.8.0",
     "react": "18.2.0",
     "react-native": "0.74.1",
@@ -35,7 +37,8 @@
     "react-native-safe-area-context": "^4.10.1",
     "react-native-screens": "^3.31.1",
     "react-native-svg": "^15.3.0",
-    "react-native-uuid": "^2.0.2"
+    "react-native-uuid": "^2.0.2",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

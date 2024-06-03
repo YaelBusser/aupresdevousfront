@@ -19,6 +19,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
   const [annonce, setAnnonce] = useState<any>();
   const [user, setUser] = useState<any>({});
   const [contactExists, setContactExists] = useState<boolean>();
+  const [idAnnoncesContacts, setIdAnnoncesContacts] = useState<number>();
   const {idAnnonce}: any = route.params;
 
   const createAnnoncesContacts = async () => {
@@ -37,25 +38,54 @@ const DetailsAnnonce = ({route, navigation}: any) => {
         id_demandeur: id_demandeur,
         id_prestataire: id_prestataire,
       })
-      .then((res: any) => {
-        Alert.alert('Contact réussi', res.data.message, [
-          {
-            text: 'OK',
-            onPress: () =>
-              navigation.navigate('MessagesSendMessages', {
-                annonceId: annonce?.id,
-                annonceUserAvatar: annonce?.user?.avatar,
-                annonceUserFirstName: annonce?.user?.firstname,
-                annonceUserName: annonce?.user?.name,
-              }),
-          },
-        ]);
+      .then(async (res: any) => {
+        await axios
+          .get('http://10.0.2.2:4001/annoncesContacts', {
+            params: {
+              id_annonce: idAnnonce,
+              id_user: user?.id,
+            },
+          })
+          .then((res: any) => {
+            Alert.alert(
+              'Contact réussi',
+              'Vous pouvez à présent discuter sur les besoins et services de cette annonce',
+              [
+                {
+                  text: 'OK',
+                  onPress: () =>
+                    navigation.navigate('MessagesSendMessages', {
+                      annonceContactsId: res.data.idAnnoncesContacts,
+                      userId: annonce?.user?.id,
+                    }),
+                },
+              ],
+            );
+          })
+          .catch(err => {
+            console.error('Error:', err);
+          });
       })
       .catch(err => {
         console.error('Error sending message:', err);
       });
   };
-
+  const getAnnoncesContacts = async () => {
+    await axios
+      .get('http://10.0.2.2:4001/annoncesContacts', {
+        params: {
+          id_annonce: idAnnonce,
+          id_user: user?.id,
+        },
+      })
+      .then((res: any) => {
+        setContactExists(res.data.contactExists);
+        setIdAnnoncesContacts(res.data.idAnnoncesContacts);
+      })
+      .catch(err => {
+        console.error('Error:', err);
+      });
+  };
   useEffect(() => {
     axios
       .get(`http://10.0.2.2:4001/annonces/details/${idAnnonce}`)
@@ -78,6 +108,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
         })
         .then((res: any) => {
           setContactExists(res.data.contactExists);
+          setIdAnnoncesContacts(res.data.idAnnoncesContacts);
         })
         .catch(err => {
           console.error('Error:', err);
@@ -153,13 +184,12 @@ const DetailsAnnonce = ({route, navigation}: any) => {
               onPress={async () => {
                 if (contactExists) {
                   navigation.navigate('MessagesSendMessages', {
-                    annonceId: annonce?.id,
-                    annonceUserAvatar: annonce?.user?.avatar,
-                    annonceUserFirstName: annonce?.user?.firstname,
-                    annonceUserName: annonce?.user?.name,
+                    annonceContactsId: idAnnoncesContacts,
+                    userId: annonce?.user?.id,
                   });
                 } else {
                   await createAnnoncesContacts();
+                  await getAnnoncesContacts();
                 }
               }}
               style={[stylesMain.button, {height: 50}]}>
