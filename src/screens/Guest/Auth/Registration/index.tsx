@@ -3,6 +3,7 @@ import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import styles from './styles';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
+import {primaryColor} from '../../../../styles/main';
 
 export default function Register() {
   const navigation = useNavigation();
@@ -102,6 +103,25 @@ export default function Register() {
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>S'inscrire</Text>
       </TouchableOpacity>
+      <Text
+        style={{
+          color: 'black',
+          fontSize: 16,
+          position: 'absolute',
+          bottom: 20,
+        }}>
+        Vous avez déjà un compte ?{' '}
+        <Text
+          onPress={() => navigation.navigate('LoginGuest')}
+          style={{
+            color: primaryColor,
+            textDecorationStyle: 'solid',
+            textDecorationLine: 'underline',
+            textDecorationColor: primaryColor,
+          }}>
+          Connectez-vous
+        </Text>
+      </Text>
     </View>
   );
 }

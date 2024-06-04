@@ -202,7 +202,9 @@ export default function Home({route, navigation}: any) {
                           source={{uri: `http://10.0.2.2:4001/${item.image}`}}
                           style={styles.adImage}
                         />
-                        <Text numberOfLines={1} style={styles.titreAnnonce}>{item.titre}</Text>
+                        <Text numberOfLines={1} style={styles.titreAnnonce}>
+                          {item.titre}
+                        </Text>
                         <Text style={styles.categoryAnnonce}>
                           {item.category.label}
                         </Text>
@@ -250,7 +252,9 @@ export default function Home({route, navigation}: any) {
                           source={{uri: `http://10.0.2.2:4001/${item.image}`}}
                           style={styles.adImage}
                         />
-                        <Text numberOfLines={1} style={styles.titreAnnonce}>{item.titre}</Text>
+                        <Text numberOfLines={1} style={styles.titreAnnonce}>
+                          {item.titre}
+                        </Text>
                         <Text style={styles.categoryAnnonce}>
                           {item.category.label}
                         </Text>

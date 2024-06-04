@@ -23,7 +23,7 @@ const stylesMain = StyleSheet.create({
     backgroundColor: primaryColor,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 10,
   },
   buttonRed: {
     width: '100%',

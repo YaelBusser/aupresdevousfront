@@ -1,3 +1,4 @@
+// Importation des modules nécessaires depuis 'react-native'
 import {
   Alert,
   Image,
@@ -6,25 +7,36 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
+// Importation des styles personnalisés
 import stylesMain from '../../../../styles/main';
 import styles from './styles';
+
+// Importation du composant GoBack pour la navigation
 import GoBack from '../../../../components/goBack';
+
+// Importation des modules React et des hooks nécessaires
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import LinearGradient from 'react-native-linear-gradient';
-import {useFocusEffect} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios'; // Pour effectuer des requêtes HTTP
+import LinearGradient from 'react-native-linear-gradient'; // Pour les dégradés
+import {useFocusEffect} from '@react-navigation/native'; // Pour exécuter du code lors de la focalisation de l'écran
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Pour stocker et récupérer des données localement
 
+// Composant principal qui affiche les détails de l'annonce
 const DetailsAnnonce = ({route, navigation}: any) => {
-  const [annonce, setAnnonce] = useState<any>();
-  const [user, setUser] = useState<any>({});
-  const [contactExists, setContactExists] = useState<boolean>();
-  const [idAnnoncesContacts, setIdAnnoncesContacts] = useState<number>();
-  const {idAnnonce}: any = route.params;
+  // Déclaration des états pour stocker les données nécessaires
+  const [annonce, setAnnonce] = useState<any>(); // Stocke les détails de l'annonce
+  const [user, setUser] = useState<any>({}); // Stocke les informations de l'utilisateur
+  const [contactExists, setContactExists] = useState<boolean>(); // Vérifie si un contact existe déjà
+  const [idAnnoncesContacts, setIdAnnoncesContacts] = useState<number>(); // Stocke l'ID des contacts de l'annonce
+  const {idAnnonce}: any = route.params; // Récupère l'ID de l'annonce depuis les paramètres de la route
 
+  // Fonction pour créer un contact pour l'annonce
   const createAnnoncesContacts = async () => {
     let id_demandeur;
     let id_prestataire;
+
+    // Détermine les rôles selon le type d'annonce
     if (annonce?.types_annonce?.label === 'Demande') {
       id_demandeur = annonce?.user?.id;
       id_prestataire = user?.id;
@@ -32,6 +44,8 @@ const DetailsAnnonce = ({route, navigation}: any) => {
       id_demandeur = user?.id;
       id_prestataire = annonce?.user?.id;
     }
+
+    // Envoie une requête pour créer un contact
     await axios
       .post('http://10.0.2.2:4001/annoncesContacts/create', {
         id_annonce: idAnnonce,
@@ -39,6 +53,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
         id_prestataire: id_prestataire,
       })
       .then(async (res: any) => {
+        // Récupère les contacts après la création
         await axios
           .get('http://10.0.2.2:4001/annoncesContacts', {
             params: {
@@ -47,6 +62,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
             },
           })
           .then((res: any) => {
+            // Affiche une alerte et navigue vers les messages
             Alert.alert(
               'Contact réussi',
               'Vous pouvez à présent discuter sur les besoins et services de cette annonce',
@@ -70,6 +86,8 @@ const DetailsAnnonce = ({route, navigation}: any) => {
         console.error('Error sending message:', err);
       });
   };
+
+  // Fonction pour récupérer les contacts de l'annonce
   const getAnnoncesContacts = async () => {
     await axios
       .get('http://10.0.2.2:4001/annoncesContacts', {
@@ -79,6 +97,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
         },
       })
       .then((res: any) => {
+        // Met à jour l'état avec les informations récupérées
         setContactExists(res.data.contactExists);
         setIdAnnoncesContacts(res.data.idAnnoncesContacts);
       })
@@ -86,7 +105,10 @@ const DetailsAnnonce = ({route, navigation}: any) => {
         console.error('Error:', err);
       });
   };
+
+  // Utilise useEffect pour effectuer des actions lors du montage du composant
   useEffect(() => {
+    // Récupère les détails de l'annonce
     axios
       .get(`http://10.0.2.2:4001/annonces/details/${idAnnonce}`)
       .then((res: any) => {
@@ -98,6 +120,8 @@ const DetailsAnnonce = ({route, navigation}: any) => {
           err,
         );
       });
+
+    // Vérifie si l'ID de l'annonce et l'ID de l'utilisateur sont disponibles pour récupérer les contacts
     if (idAnnonce && user?.id) {
       axios
         .get('http://10.0.2.2:4001/annoncesContacts', {
@@ -114,8 +138,9 @@ const DetailsAnnonce = ({route, navigation}: any) => {
           console.error('Error:', err);
         });
     }
-  }, [annonce?.types_annonce?.label, idAnnonce, user?.id]);
+  }, [annonce?.types_annonce?.label, idAnnonce, user?.id]); // Déclenche useEffect lors du changement de ces dépendances
 
+  // Fonction pour récupérer les données de l'utilisateur
   const getUserData = () => {
     AsyncStorage.getItem('token')
       .then(token => {
@@ -133,11 +158,14 @@ const DetailsAnnonce = ({route, navigation}: any) => {
       });
   };
 
+  // Utilise useFocusEffect pour récupérer les données de l'utilisateur à chaque fois que l'écran est focalisé
   useFocusEffect(
     React.useCallback(() => {
       getUserData();
     }, []),
   );
+
+  // Retourne le rendu du composant
   return (
     <ScrollView contentContainerStyle={stylesMain.body}>
       <GoBack navigation={navigation} />
@@ -204,4 +232,5 @@ const DetailsAnnonce = ({route, navigation}: any) => {
   );
 };
 
+// Exportation du composant pour utilisation dans d'autres parties de l'application
 export default DetailsAnnonce;

@@ -70,16 +70,16 @@ const HomeGuest = ({navigation}) => {
               </Text>
             </View>
             <View style={styles.blockButtons}>
-              <TouchableHighlight
+              <TouchableOpacity
                 onPress={() => navigation.navigate('LoginGuest')}
                 style={styles.AuthFormButton}>
                 <Text style={[styles.AuthFormButtonText]}>Se connecter</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
+              </TouchableOpacity>
+              <TouchableOpacity
                 onPress={() => navigation.navigate('RegisterGuest')}
                 style={styles.AuthFormButton}>
                 <Text style={styles.AuthFormButtonText}>S'inscrire</Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
