@@ -19,6 +19,7 @@ import {faXmark, faPen, faCheck} from '@fortawesome/free-solid-svg-icons';
 import ImagePicker from 'react-native-image-crop-picker';
 import v4 from 'react-native-uuid';
 import Modal from 'react-native-modal';
+import env from '../../../../../env.json';
 
 const DetailsMonAnnonce = ({navigation}: any) => {
   const route = useRoute();
@@ -36,7 +37,7 @@ const DetailsMonAnnonce = ({navigation}: any) => {
 
   useEffect(() => {
     axios
-      .get(`http://10.0.2.2:4001/annonces/details/${id}`)
+      .get(`${env.API}/annonces/details/${id}`)
       .then((res: any) => {
         setAnnonce(res.data);
         setEditedTitle(res.data.titre);
@@ -72,7 +73,7 @@ const DetailsMonAnnonce = ({navigation}: any) => {
       });
     }
     await axios
-      .put(`http://10.0.2.2:4001/annonces/edit/${id}`, formData, {
+      .put(`${env.API}/annonces/edit/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -102,7 +103,7 @@ const DetailsMonAnnonce = ({navigation}: any) => {
   const handleDeleteAnnonce = async () => {
     setIsModalVisible(false);
     await axios
-      .delete(`http://10.0.2.2:4001/annonces/delete/${id}`)
+      .delete(`${env.API}/annonces/delete/${id}`)
       .then(() => {
         navigation.goBack();
       })
@@ -154,7 +155,7 @@ const DetailsMonAnnonce = ({navigation}: any) => {
                 uri:
                   imageUri !== ''
                     ? imageUri
-                    : `http://10.0.2.2:4001/${annonce?.image}`,
+                    : `${env.API}/${annonce?.image}`,
               }}
               style={styles.couverture}
               blurRadius={isEditing ? 1 : 0}
@@ -195,7 +196,7 @@ const DetailsMonAnnonce = ({navigation}: any) => {
             <View style={styles.profile}>
               <Image
                 style={styles.avatar}
-                source={{uri: `http://10.0.2.2:4001/${annonce?.user?.avatar}`}}
+                source={{uri: `${env.API}/${annonce?.user?.avatar}`}}
               />
               <Text style={styles.profileName}>
                 {annonce?.user?.firstname} {annonce?.user?.name}

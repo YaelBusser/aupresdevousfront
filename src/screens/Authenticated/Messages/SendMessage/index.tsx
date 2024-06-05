@@ -22,6 +22,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import io from 'socket.io-client';
 import moment from 'moment';
 import 'moment/locale/fr';
+import env from '../../../../../env.json';
 
 const MessagesSendMessages = ({route, navigation}: any) => {
   const {annonceContactsId, userId}: any = route.params;
@@ -44,7 +45,7 @@ const MessagesSendMessages = ({route, navigation}: any) => {
   const getUserData = () => {
     AsyncStorage.getItem('token')
       .then(token => {
-        return axios.get('http://10.0.2.2:4001/profile', {
+        return axios.get(`${env.API}/profile`, {
           headers: {
             Authorization: `${token}`,
           },
@@ -59,7 +60,7 @@ const MessagesSendMessages = ({route, navigation}: any) => {
   };
 
   useEffect(() => {
-    const newSocket = io('http://10.0.2.2:4001');
+    const newSocket = io(`${env.API}`);
     setSocket(newSocket);
     return () => {
       newSocket.disconnect();
@@ -129,7 +130,7 @@ const MessagesSendMessages = ({route, navigation}: any) => {
       setMessage('');
     }
     await axios
-      .post('http://10.0.2.2:4001/messages/send', {
+      .post(`${env.API}/messages/send`, {
         id_annonces_contacts: annonceContactsId,
         id_sender: user.id,
         message: message,
@@ -150,7 +151,7 @@ const MessagesSendMessages = ({route, navigation}: any) => {
   const getHistoryMessages = async () => {
     console.log('annonceContactsId', annonceContactsId);
     await axios
-      .get('http://10.0.2.2:4001/messages', {
+      .get(`${env.API}/messages`, {
         params: {
           idAnnoncesContacts: annonceContactsId,
         },
@@ -178,7 +179,7 @@ const MessagesSendMessages = ({route, navigation}: any) => {
   useEffect(() => {
     if (userId) {
       axios
-        .get(`http://10.0.2.2:4001/profile/${userId}`)
+        .get(`${env.API}/profile/${userId}`)
         .then((res: any) => {
           setUserMessage(res.data.user);
         })
@@ -213,7 +214,7 @@ const MessagesSendMessages = ({route, navigation}: any) => {
           <View style={styles.profile}>
             <Image
               style={styles.avatar}
-              source={{uri: `http://10.0.2.2:4001/${userMessage?.avatar}`}}
+              source={{uri: `${env.API}/${userMessage?.avatar}`}}
             />
             <Text style={styles.profileName}>
               {userMessage?.firstname} {userMessage?.name}

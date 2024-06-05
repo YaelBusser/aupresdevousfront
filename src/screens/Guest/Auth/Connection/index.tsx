@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import stylesMain, {primaryColor} from '../../../../styles/main';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import env from '../../../../../env.json';
 
 export default function Login({navigation}: any) {
   const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ export default function Login({navigation}: any) {
       }
 
       await axios
-        .post('http://10.0.2.2:4001/auth/login', {
+        .post(`${env.API}/auth/login`, {
           email,
           password,
         })

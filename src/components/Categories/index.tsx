@@ -2,11 +2,13 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import axios from 'axios';
 import {useEffect, useState} from 'react';
+import env from '../../../env.json';
+
 const Categories = () => {
   const [allCategories, setAllCategories] = useState([]);
   const getAllCategories = () => {
     axios
-      .get('http://10.0.2.2:4001/categories')
+      .get(`${env.API}/categories`)
       .then(res => {
         setAllCategories(res.data);
       })

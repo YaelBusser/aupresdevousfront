@@ -5,6 +5,7 @@ import styles from './styles.tsx';
 import stylesMain from '../../../../styles/main';
 import axios from 'axios';
 import GoBack from '../../../../components/goBack';
+import env from '../../../../../env.json';
 
 export default function HomeCategories({navigation}: any) {
   const [allCategories, setAllCategories] = useState([]);
@@ -14,7 +15,7 @@ export default function HomeCategories({navigation}: any) {
 
   const getAllCategories = () => {
     axios
-      .get('http://10.0.2.2:4001/categories')
+      .get(`${env.API}/categories`)
       .then((res: any) => {
         setAllCategories(res.data);
       })

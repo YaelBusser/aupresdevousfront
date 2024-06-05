@@ -21,6 +21,7 @@ import axios from 'axios'; // Pour effectuer des requêtes HTTP
 import LinearGradient from 'react-native-linear-gradient'; // Pour les dégradés
 import {useFocusEffect} from '@react-navigation/native'; // Pour exécuter du code lors de la focalisation de l'écran
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Pour stocker et récupérer des données localement
+import env from '../../../../../env.json';
 
 // Composant principal qui affiche les détails de l'annonce
 const DetailsAnnonce = ({route, navigation}: any) => {
@@ -47,7 +48,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
 
     // Envoie une requête pour créer un contact
     await axios
-      .post('http://10.0.2.2:4001/annoncesContacts/create', {
+      .post(`${env.API}/annoncesContacts/create`, {
         id_annonce: idAnnonce,
         id_demandeur: id_demandeur,
         id_prestataire: id_prestataire,
@@ -55,7 +56,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
       .then(async (res: any) => {
         // Récupère les contacts après la création
         await axios
-          .get('http://10.0.2.2:4001/annoncesContacts', {
+          .get(`${env.API}/annoncesContacts`, {
             params: {
               id_annonce: idAnnonce,
               id_user: user?.id,
@@ -90,7 +91,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
   // Fonction pour récupérer les contacts de l'annonce
   const getAnnoncesContacts = async () => {
     await axios
-      .get('http://10.0.2.2:4001/annoncesContacts', {
+      .get(`${env.API}/annoncesContacts`, {
         params: {
           id_annonce: idAnnonce,
           id_user: user?.id,
@@ -110,7 +111,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
   useEffect(() => {
     // Récupère les détails de l'annonce
     axios
-      .get(`http://10.0.2.2:4001/annonces/details/${idAnnonce}`)
+      .get(`${env.API}/annonces/details/${idAnnonce}`)
       .then((res: any) => {
         setAnnonce(res.data);
       })
@@ -124,7 +125,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
     // Vérifie si l'ID de l'annonce et l'ID de l'utilisateur sont disponibles pour récupérer les contacts
     if (idAnnonce && user?.id) {
       axios
-        .get('http://10.0.2.2:4001/annoncesContacts', {
+        .get(`${env.API}/annoncesContacts`, {
           params: {
             id_annonce: idAnnonce,
             id_user: user?.id,
@@ -144,7 +145,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
   const getUserData = () => {
     AsyncStorage.getItem('token')
       .then(token => {
-        return axios.get('http://10.0.2.2:4001/profile', {
+        return axios.get(`${env.API}/profile`, {
           headers: {
             Authorization: `${token}`,
           },
@@ -174,7 +175,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
           <View>
             <Image
               source={{
-                uri: `http://10.0.2.2:4001/${annonce?.image}`,
+                uri: `${env.API}/${annonce?.image}`,
               }}
               style={styles.couverture}
             />
@@ -197,7 +198,7 @@ const DetailsAnnonce = ({route, navigation}: any) => {
             <View style={styles.profile}>
               <Image
                 style={styles.avatar}
-                source={{uri: `http://10.0.2.2:4001/${annonce?.user?.avatar}`}}
+                source={{uri: `${env.API}/${annonce?.user?.avatar}`}}
               />
               <Text style={styles.profileName}>
                 {annonce?.user?.firstname} {annonce?.user?.name}

@@ -14,7 +14,7 @@ import {Searchbar, RadioButton} from 'react-native-paper';
 import Header from '../../../components/header';
 import Footer from '../../../components/footer';
 import axios from 'axios';
-
+import env from '../../../../env.json';
 export default function Home({route, navigation}: any) {
   const [searchQuery, setSearchQuery] = useState('');
   const [category, setCategory] = useState<string>('Tout');
@@ -34,7 +34,7 @@ export default function Home({route, navigation}: any) {
 
   const getAllCategories = () => {
     axios
-      .get('http://10.0.2.2:4001/categories')
+      .get(`${env.API}/categories`)
       .then((res: any) => {
         setAllCategories(res.data);
       })
@@ -47,7 +47,7 @@ export default function Home({route, navigation}: any) {
     selectedIdCategory?: number,
     search?: string,
   ) => {
-    let url = 'http://10.0.2.2:4001/annonces';
+    let url = `${env.API}/annonces`;
     const params = new URLSearchParams();
 
     if (selectedCategory && selectedCategory !== 'Tout') {
@@ -199,7 +199,7 @@ export default function Home({route, navigation}: any) {
                     <View style={styles.annonce}>
                       <View style={styles.annonceContent}>
                         <Image
-                          source={{uri: `http://10.0.2.2:4001/${item.image}`}}
+                          source={{uri: `${env.API}/${item.image}`}}
                           style={styles.adImage}
                         />
                         <Text numberOfLines={1} style={styles.titreAnnonce}>
@@ -249,7 +249,7 @@ export default function Home({route, navigation}: any) {
                     <View style={styles.annonce}>
                       <View style={styles.annonceContent}>
                         <Image
-                          source={{uri: `http://10.0.2.2:4001/${item.image}`}}
+                          source={{uri: `${env.API}/${item.image}`}}
                           style={styles.adImage}
                         />
                         <Text numberOfLines={1} style={styles.titreAnnonce}>

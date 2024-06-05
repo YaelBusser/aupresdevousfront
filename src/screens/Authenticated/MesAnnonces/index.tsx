@@ -7,13 +7,15 @@ import stylesMain from '../../../styles/main';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import env from '../../../../env.json';
+
 const MesAnnonces = ({navigation}: any) => {
   const [user, setUser] = useState<any>(null);
   const [annonces, setAnnonces] = useState<any>();
   const getUserData = () => {
     AsyncStorage.getItem('token')
       .then(token => {
-        return axios.get('http://10.0.2.2:4001/profile', {
+        return axios.get(`${env.API}/profile`, {
           headers: {
             Authorization: `${token}`,
           },
@@ -29,7 +31,7 @@ const MesAnnonces = ({navigation}: any) => {
 
   const getAnnoncesByUserId = (userId: number) => {
     axios
-      .get(`http://10.0.2.2:4001/annonces/${userId}`)
+      .get(`${env.API}/annonces/${userId}`)
       .then(response => {
         setAnnonces(response.data);
         console.log(response.data);
@@ -79,7 +81,7 @@ const MesAnnonces = ({navigation}: any) => {
                     }>
                     <View>
                       <Image
-                        source={{uri: `http://10.0.2.2:4001/${demande.image}`}}
+                        source={{uri: `${env.API}/${demande.image}`}}
                         style={styles.imageItem}
                       />
                     </View>
@@ -120,7 +122,7 @@ const MesAnnonces = ({navigation}: any) => {
                       navigation.navigate('DetailsMonAnnonce', {id: service.id})
                     }>
                     <Image
-                      source={{uri: `http://10.0.2.2:4001/${service.image}`}}
+                      source={{uri: `${env.API}/${service.image}`}}
                       style={styles.imageItem}
                     />
                     <View style={styles.infosItem}>

@@ -17,7 +17,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import moment from 'moment';
 import 'moment/locale/fr';
 import io from 'socket.io-client';
-import { useMessages } from './MessagesContext';
+import env from '../../../../env.json';
 
 const Messages = ({route, navigation}: any) => {
   const [user, setUser] = useState<any>({});
@@ -30,7 +30,7 @@ const Messages = ({route, navigation}: any) => {
     }
     try {
       const res = await axios.get(
-        'http://10.0.2.2:4001/annoncesContacts/contacts',
+        `${env.API}/annoncesContacts/contacts`,
         {
           params: {id_user: user.id},
         },
@@ -45,7 +45,7 @@ const Messages = ({route, navigation}: any) => {
   const getUserData = async () => {
     try {
       const token = await AsyncStorage.getItem('token');
-      const res = await axios.get('http://10.0.2.2:4001/profile', {
+      const res = await axios.get(`${env.API}/profile`, {
         headers: {Authorization: `${token}`},
       });
       setUser(res.data.user);
@@ -59,7 +59,7 @@ const Messages = ({route, navigation}: any) => {
     annonceContactsId: number,
   ) => {
     await axios
-      .put('http://10.0.2.2:4001/messages/mark-as-read', {
+      .put(`${env.API}/messages/mark-as-read`, {
         id_sender: id_sender,
         id_annonces_contacts: annonceContactsId,
         idUser: user?.id,
@@ -88,7 +88,7 @@ const Messages = ({route, navigation}: any) => {
   );
 
   useEffect(() => {
-    const newSocket = io('http://10.0.2.2:4001');
+    const newSocket = io(`${env.API}`);
     setSocket(newSocket);
 
     newSocket.on('chat message', (msg: any) => {
@@ -138,7 +138,7 @@ const Messages = ({route, navigation}: any) => {
                           )}
                           <Image
                             source={{
-                              uri: `http://10.0.2.2:4001/${otherUser?.avatar}`,
+                              uri: `${env.API}/${otherUser?.avatar}`,
                             }}
                             style={styles.userAvatar}
                           />

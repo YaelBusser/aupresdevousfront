@@ -4,6 +4,7 @@ import styles from './styles';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import {primaryColor} from '../../../../styles/main';
+import env from '../../../../../env.json';
 
 export default function Register() {
   const navigation = useNavigation();
@@ -44,7 +45,7 @@ export default function Register() {
         return;
       }
 
-      const response = await axios.post('http://10.0.2.2:4001/auth/register', {
+      const response = await axios.post(`${env.API}/auth/register`, {
         name: lastName,
         firstname: firstName,
         email,

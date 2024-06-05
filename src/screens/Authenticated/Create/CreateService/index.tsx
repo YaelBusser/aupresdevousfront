@@ -15,6 +15,7 @@ import axios from 'axios';
 import ImagePicker from 'react-native-image-crop-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import v4 from 'react-native-uuid';
+import env from '../../../../../env.json';
 
 const CreateService = ({navigation}: any) => {
   const [token, setToken] = useState<string | null>('');
@@ -39,7 +40,7 @@ const CreateService = ({navigation}: any) => {
   let formData: any;
   const getAllCategories = async () => {
     await axios
-      .get('http://10.0.2.2:4001/categories')
+      .get(`${env.API}/categories`)
       .then(res => {
         setAllCategories(res.data);
       })
@@ -92,7 +93,7 @@ const CreateService = ({navigation}: any) => {
       }
 
       await axios
-        .post('http://10.0.2.2:4001/annonces/create/service', formData, {
+        .post(`${env.API}/annonces/create/service`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -134,7 +135,7 @@ const CreateService = ({navigation}: any) => {
     try {
       const token = await AsyncStorage.getItem('token');
       setToken(token);
-      const response = await axios.get('http://10.0.2.2:4001/profile', {
+      const response = await axios.get(`${env.API}/profile`, {
         headers: {
           Authorization: `${token}`,
         },

@@ -8,6 +8,7 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
 import v4 from 'react-native-uuid';
+import env from '../../../../env.json';
 
 const MonCompte = () => {
   const navigation = useNavigation();
@@ -47,7 +48,7 @@ const MonCompte = () => {
         });
         formData.append('userId', user?.id);
         axios
-          .post('http://10.0.2.2:4001/profile/edit/avatar', formData, {
+          .post(`${env.API}/profile/edit/avatar`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -72,7 +73,7 @@ const MonCompte = () => {
   const getUserData = () => {
     AsyncStorage.getItem('token')
       .then(token => {
-        return axios.get('http://10.0.2.2:4001/profile', {
+        return axios.get(`${env.API}/profile`, {
           headers: {
             Authorization: `${token}`,
           },
@@ -80,7 +81,7 @@ const MonCompte = () => {
       })
       .then(res => {
         setUser(res.data.user);
-        setImageUri(`http://10.0.2.2:4001/${res.data.user.avatar}`);
+        setImageUri(`${env.API}/${res.data.user.avatar}`);
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
@@ -113,7 +114,7 @@ const MonCompte = () => {
             <Image
               source={
                 user?.avatar
-                  ? {uri: `http://10.0.2.2:4001/${user.avatar}`}
+                  ? {uri: `${env.API}/${user.avatar}`}
                   : defaultProfile
               }
               style={styles.imageProfile}
