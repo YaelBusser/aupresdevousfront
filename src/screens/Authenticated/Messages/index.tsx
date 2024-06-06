@@ -29,12 +29,9 @@ const Messages = ({route, navigation}: any) => {
       return;
     }
     try {
-      const res = await axios.get(
-        `${env.API}/annoncesContacts/contacts`,
-        {
-          params: {id_user: user.id},
-        },
-      );
+      const res = await axios.get(`${env.API}/annoncesContacts/contacts`, {
+        params: {id_user: user.id},
+      });
       setContacts(res.data);
       console.log('res.data', res.data[0]);
     } catch (err) {

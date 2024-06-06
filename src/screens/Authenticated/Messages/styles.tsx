@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {primaryColor} from '../../../styles/main';
+import {primaryColor, primaryFontRegular, primaryFontSemiBold} from '../../../styles/main';
 
 const styles = StyleSheet.create({
   content: {
@@ -14,13 +14,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'black',
     zIndex: 2,
+    fontFamily: primaryFontSemiBold,
   },
   containerContacts: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
-    marginTop: 20,
   },
   containerTypeAnnonce: {
     marginBottom: 20,
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: primaryColor,
     maxWidth: '90%',
-    fontWeight: 'bold',
   },
   blockContacts: {
     marginTop: 20,
@@ -52,8 +51,8 @@ const styles = StyleSheet.create({
     borderRadius: 10.74,
   },
   userAvatar: {
-    width: 65,
-    height: 65,
+    width: 60,
+    height: 60,
     resizeMode: 'contain',
     borderRadius: 50,
   },
@@ -84,13 +83,12 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   username: {
-    fontWeight: 'normal',
-    fontSize: 18,
+    fontSize: 14,
+    fontFamily: primaryFontSemiBold,
     color: 'black',
     maxWidth: '90%',
   },
   usernameUnseen: {
-    fontWeight: 'bold',
     fontSize: 18,
     color: 'black',
     maxWidth: '90%',
@@ -114,16 +112,19 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   lastMessage: {
-    fontWeight: 'normal',
-    fontSize: 14,
+    fontSize: 12,
+    fontFamily: primaryFontRegular,
     maxWidth: '55%',
+    color: 'grey',
   },
   lastMessageUnseen: {
-    fontWeight: 'bold',
     color: 'black',
   },
   dateLastMessage: {
-    fontWeight: 'normal',
+    fontSize: 12,
+    fontFamily: primaryFontRegular,
+    maxWidth: '55%',
+    color: 'grey',
   },
   noContacts: {
     fontSize: 14,

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     width: '80%',
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },

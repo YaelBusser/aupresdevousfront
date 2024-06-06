@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 
 import styles from './styles.tsx';
-import stylesMain from '../../../../styles/main';
+import stylesMain, {primaryFontSemiBold} from '../../../../styles/main';
 import axios from 'axios';
 import GoBack from '../../../../components/goBack';
 import env from '../../../../../env.json';
@@ -36,7 +36,7 @@ export default function HomeCategories({navigation}: any) {
           <View style={styles.contentCategory}>
             <Text style={styles.title}>Catégories</Text>
             <View style={styles.blockCategories}>
-              {allCategories.slice(0, 3).map((cat: any, index) => (
+              {allCategories.map((cat: any, index) => (
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('Home', {
@@ -54,7 +54,9 @@ export default function HomeCategories({navigation}: any) {
                     <View style={styles.blockIcon}>
                       <Image source={{uri: cat.icon}} style={styles.icon} />
                     </View>
-                    <Text key={index}>{cat.label}</Text>
+                    <Text key={index} style={{fontFamily: primaryFontSemiBold, color: 'black', fontSize: 14,}}>
+                      {cat.label}
+                    </Text>
                     <Image source={arrow} style={styles.iconArrow} />
                   </View>
                 </TouchableOpacity>

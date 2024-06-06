@@ -207,6 +207,9 @@ const DetailsAnnonce = ({route, navigation}: any) => {
             <View style={styles.infosAnnonce}>
               <Text style={styles.description}>{annonce?.description}</Text>
             </View>
+            <View style={styles.infosUser}>
+              <Text style={styles.infosUserTitle}>Informations concernant {annonce?.user?.firstname}</Text>
+            </View>
           </View>
           <View style={styles.contactButton}>
             <TouchableOpacity

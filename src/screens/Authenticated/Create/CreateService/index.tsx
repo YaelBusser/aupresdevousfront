@@ -16,6 +16,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import v4 from 'react-native-uuid';
 import env from '../../../../../env.json';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faAdd} from '@fortawesome/free-solid-svg-icons';
 
 const CreateService = ({navigation}: any) => {
   const [token, setToken] = useState<string | null>('');
@@ -166,7 +168,7 @@ const CreateService = ({navigation}: any) => {
           imageUri.length > 0 && {height: '140%'},
         ]}>
         <View style={styles.content}>
-          <Text style={styles.title}>Mon service</Text>
+          <Text style={styles.title}>Ma prestation</Text>
           <View>
             <Text
               style={styles.label}
@@ -175,10 +177,10 @@ const CreateService = ({navigation}: any) => {
             </Text>
             <TextInput
               ref={titleRef}
-              style={styles.input}
+              style={stylesMain.input}
               value={title}
               onChangeText={setTitle}
-              placeholder="Entrez le titre de votre service"
+              placeholder="Entrez le titre de votre prestation"
             />
             {titleError ? <Text style={styles.error}>{titleError}</Text> : null}
           </View>
@@ -193,22 +195,24 @@ const CreateService = ({navigation}: any) => {
               style={styles.textArea}
               value={description}
               onChangeText={setDescription}
-              placeholder="Entrez la description de votre service"
+              placeholder="Entrez la description de votre prestation"
               multiline
+              numberOfLines={5}
+              placeholderTextColor={'grey'}
             />
             {descriptionError ? (
               <Text style={styles.error}>{descriptionError}</Text>
             ) : null}
           </View>
           <View>
-            <Text style={styles.label}>Image de couverture</Text>
+            <Text style={styles.label}>Image</Text>
             <View style={styles.blockImage}>
               <View
                 style={[
                   {padding: 10},
                   imageUri.length > 0
                     ? styles.imageSelected
-                    : stylesMain.button,
+                    : styles.blockButtonAddImage,
                 ]}>
                 {imageUri.length > 0 ? (
                   <>
@@ -229,10 +233,26 @@ const CreateService = ({navigation}: any) => {
                 ) : (
                   <TouchableOpacity
                     onPress={uploadImage}
-                    style={stylesMain.button}>
-                    <Text style={stylesMain.buttonText}>
-                      Sélectionner une image de couverture
+                    style={styles.buttonAddImage}>
+                    <Text style={styles.buttonAddImageText}>
+                      Insérer une image de couverture
                     </Text>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderWidth: 2,
+                        borderStyle: 'solid',
+                        borderColor: 'black',
+                        borderRadius: 50,
+                        width: 16,
+                        height: 16,
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <FontAwesomeIcon size={12} color={'black'} icon={faAdd} />
+                    </View>
                   </TouchableOpacity>
                 )}
               </View>
@@ -246,21 +266,29 @@ const CreateService = ({navigation}: any) => {
                 imageUri.length > 0 && {marginTop: 50},
               ]}>
               <Text style={styles.label}>Catégorie</Text>
-              <Text>Sélectionnez une catégorie pour votre service</Text>
+              <Text style={styles.textCat}>
+                Sélectionnez une catégorie pour votre prestation
+              </Text>
               <View style={styles.listCategories}>
                 {allCategories.map((cat: any, index) => (
                   <TouchableOpacity
                     key={index}
                     style={[
                       styles.blocCategory,
-                      category === cat.label && styles.selectedCategory,
+                      category === cat.label ? styles.selectedCategory : {},
                     ]}
                     onPress={() => {
                       setCategory(cat.label);
                       setIdCategory(cat.id);
                       setCategoryError('');
                     }}>
-                    <View style={styles.blockIcon}>
+                    <View
+                      style={[
+                        styles.blockIcon,
+                        category === cat.label
+                          ? {backgroundColor: 'white'}
+                          : {},
+                      ]}>
                       <Image source={{uri: cat.icon}} style={styles.icon} />
                     </View>
                     <Text
@@ -279,8 +307,10 @@ const CreateService = ({navigation}: any) => {
             ) : null}
           </View>
           <View>
-            <TouchableOpacity style={stylesMain.button} onPress={handleSubmit}>
-              <Text style={stylesMain.buttonText}>Créer mon service</Text>
+            <TouchableOpacity
+              style={[stylesMain.button, {height: 50}]}
+              onPress={handleSubmit}>
+              <Text style={stylesMain.buttonText}>Créer ma prestation</Text>
             </TouchableOpacity>
           </View>
         </View>

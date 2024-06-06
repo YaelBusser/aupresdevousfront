@@ -8,7 +8,7 @@ import {
   View,
   ScrollView,
 } from 'react-native';
-import stylesMain from '../../../../styles/main';
+import stylesMain, {primaryColor} from '../../../../styles/main';
 import styles from './styles';
 import GoBack from '../../../../components/goBack';
 import axios from 'axios';
@@ -16,6 +16,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import v4 from 'react-native-uuid';
 import env from '../../../../../env.json';
+import {faAdd} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const CreateDemande = ({navigation}: any) => {
   const [token, setToken] = useState<string | null>('');
@@ -175,7 +177,7 @@ const CreateDemande = ({navigation}: any) => {
             </Text>
             <TextInput
               ref={titleRef}
-              style={styles.input}
+              style={stylesMain.input}
               value={title}
               onChangeText={setTitle}
               placeholder="Entrez le titre de votre demande"
@@ -195,20 +197,22 @@ const CreateDemande = ({navigation}: any) => {
               onChangeText={setDescription}
               placeholder="Entrez la description de votre demande"
               multiline
+              numberOfLines={5}
+              placeholderTextColor={'grey'}
             />
             {descriptionError ? (
               <Text style={styles.error}>{descriptionError}</Text>
             ) : null}
           </View>
           <View>
-            <Text style={styles.label}>Image de couverture</Text>
+            <Text style={styles.label}>Image</Text>
             <View style={styles.blockImage}>
               <View
                 style={[
                   {padding: 10},
                   imageUri.length > 0
                     ? styles.imageSelected
-                    : stylesMain.button,
+                    : styles.blockButtonAddImage,
                 ]}>
                 {imageUri.length > 0 ? (
                   <>
@@ -229,10 +233,26 @@ const CreateDemande = ({navigation}: any) => {
                 ) : (
                   <TouchableOpacity
                     onPress={uploadImage}
-                    style={stylesMain.button}>
-                    <Text style={stylesMain.buttonText}>
-                      Sélectionner une image de couverture
+                    style={styles.buttonAddImage}>
+                    <Text style={styles.buttonAddImageText}>
+                      Insérer une image de couverture
                     </Text>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderWidth: 2,
+                        borderStyle: 'solid',
+                        borderColor: 'black',
+                        borderRadius: 50,
+                        width: 16,
+                        height: 16,
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <FontAwesomeIcon size={12} color={'black'} icon={faAdd} />
+                    </View>
                   </TouchableOpacity>
                 )}
               </View>
@@ -246,21 +266,29 @@ const CreateDemande = ({navigation}: any) => {
                 imageUri.length > 0 && {marginTop: 50},
               ]}>
               <Text style={styles.label}>Catégorie</Text>
-              <Text>Sélectionnez une catégorie pour votre demande</Text>
+              <Text style={styles.textCat}>
+                Sélectionnez une catégorie pour votre demande
+              </Text>
               <View style={styles.listCategories}>
                 {allCategories.map((cat: any, index) => (
                   <TouchableOpacity
                     key={index}
                     style={[
                       styles.blocCategory,
-                      category === cat.label && styles.selectedCategory,
+                      category === cat.label ? styles.selectedCategory : {},
                     ]}
                     onPress={() => {
                       setCategory(cat.label);
                       setIdCategory(cat.id);
                       setCategoryError('');
                     }}>
-                    <View style={styles.blockIcon}>
+                    <View
+                      style={[
+                        styles.blockIcon,
+                        category === cat.label
+                          ? {backgroundColor: 'white'}
+                          : {},
+                      ]}>
                       <Image source={{uri: cat.icon}} style={styles.icon} />
                     </View>
                     <Text
@@ -279,7 +307,9 @@ const CreateDemande = ({navigation}: any) => {
             ) : null}
           </View>
           <View>
-            <TouchableOpacity style={stylesMain.button} onPress={handleSubmit}>
+            <TouchableOpacity
+              style={[stylesMain.button, {height: 50}]}
+              onPress={handleSubmit}>
               <Text style={stylesMain.buttonText}>Créer ma demande</Text>
             </TouchableOpacity>
           </View>

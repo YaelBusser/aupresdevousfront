@@ -41,7 +41,23 @@ const MessagesSendMessages = ({route, navigation}: any) => {
   const scrollViewRef = useRef<ScrollView>(null);
 
   console.log('userId', userId);
-
+  const setReadMessages = async (
+    id_sender: number,
+    annonceContactsId: number,
+  ) => {
+    await axios
+      .put(`${env.API}/messages/mark-as-read`, {
+        id_sender: id_sender,
+        id_annonces_contacts: annonceContactsId,
+        idUser: user?.id,
+      })
+      .then((res: any) => {
+        console.log(res.data.message);
+      })
+      .catch(err => {
+        console.log(err.response?.data?.message);
+      });
+  };
   const getUserData = () => {
     AsyncStorage.getItem('token')
       .then(token => {
@@ -86,6 +102,7 @@ const MessagesSendMessages = ({route, navigation}: any) => {
     });
 
     return () => {
+      setReadMessages(user.id, annonceContactsId);
       socket.emit('leave room', annonceContactsId);
       socket.off('chat message');
       socket.off('typing');
@@ -177,19 +194,38 @@ const MessagesSendMessages = ({route, navigation}: any) => {
   });
 
   useEffect(() => {
-    if (userId) {
-      axios
-        .get(`${env.API}/profile/${userId}`)
-        .then((res: any) => {
-          setUserMessage(res.data.user);
-        })
-        .catch((err: any) => {
+    const fetchUserMessage = async () => {
+      moment.locale('fr');
+      if (userId) {
+        try {
+          const token = await AsyncStorage.getItem('token');
+          if (!token) {
+            throw new Error('Token not found');
+          }
+
+          console.log('userIdCACA', userId);
+
+          const response = await axios.get(`${env.API}/profile/${userId}`, {
+            headers: {
+              Authorization: `${token}`,
+            },
+          });
+
+          setUserMessage(response.data.user);
+        } catch (err: any) {
           console.error(
             "Erreur lors de la récupération des détails de l'utilisateur:",
             err,
           );
-        });
-    }
+          setErrorMessage(
+            err.response?.data?.message ||
+              "Erreur lors de la récupération des détails de l'utilisateur",
+          );
+        }
+      }
+    };
+
+    fetchUserMessage();
   }, [userId]);
 
   useEffect(() => {
@@ -239,7 +275,9 @@ const MessagesSendMessages = ({route, navigation}: any) => {
                       : styles.blockMessageOther
                   }
                   key={index}>
-                  <Text>{moment(historyMessage.date).calendar()}</Text>
+                  <Text style={styles.dateMessage}>
+                    {moment(historyMessage.date).add(0, 'days').calendar()}
+                  </Text>
                   <Text style={styles.textMessage}>
                     {historyMessage.messages}
                   </Text>
@@ -254,7 +292,9 @@ const MessagesSendMessages = ({route, navigation}: any) => {
                     : styles.blockMessageOther
                 }
                 key={index}>
-                <Text>{moment(msg.date).add(2, 'hours').calendar()}</Text>
+                <Text style={styles.dateMessage}>
+                  {moment(msg.date).add(2, 'hours').add(0, 'days').calendar()}
+                </Text>
                 <Text style={styles.textMessage}>{msg.message}</Text>
               </View>
             ))}

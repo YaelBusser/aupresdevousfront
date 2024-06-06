@@ -5,7 +5,10 @@ import {
   Button,
   Pressable,
   ImageBackground,
-  Image, Touchable, TouchableOpacity, TouchableHighlight,
+  Image,
+  Touchable,
+  TouchableOpacity,
+  TouchableHighlight,
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import stylesMain from '../../../styles/main.tsx';
@@ -13,7 +16,7 @@ import styles from './styles.tsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {jwtDecode} from 'jwt-decode';
 
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation} from '@react-navigation/native';
 
 // @ts-ignore
 const HomeGuest = ({navigation}) => {

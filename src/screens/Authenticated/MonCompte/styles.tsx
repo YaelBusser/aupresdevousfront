@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {primaryColor, primaryFont} from '../../../styles/main';
+import {primaryColor, primaryFontRegular} from '../../../styles/main';
 
 const styles = StyleSheet.create({
   containerProfile: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textTransform: 'uppercase',
     color: 'white',
-    fontFamily: primaryFont,
+    fontFamily: primaryFontRegular,
   },
   logoLogout: {
     width: '90%',
@@ -42,18 +42,22 @@ const styles = StyleSheet.create({
     height: 150,
     resizeMode: 'contain',
     zIndex: 50,
-    borderStyle: 'solid',
-    borderColor: 'white',
-    borderWidth: 2,
     borderRadius: 100,
   },
   editIcon: {
     position: 'absolute',
-    top: -150,
+    top: -10,
     right: -15,
     width: 20,
     height: 20,
     zIndex: 50,
+    padding: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: primaryColor,
+    borderRadius: 50,
   },
   name: {
     color: 'white',

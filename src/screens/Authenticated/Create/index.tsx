@@ -1,6 +1,7 @@
 import {
   Alert,
-  Image, ScrollView,
+  Image,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -31,7 +32,7 @@ const Create = () => {
             <TouchableOpacity
               style={stylesMain.button}
               onPress={() => navigation.navigate('CreateService')}>
-              <Text style={stylesMain.buttonText}>Proposer un service</Text>
+              <Text style={stylesMain.buttonText}>Proposer une prestation</Text>
             </TouchableOpacity>
           </View>
         </View>

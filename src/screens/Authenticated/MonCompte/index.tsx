@@ -9,6 +9,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
 import v4 from 'react-native-uuid';
 import env from '../../../../env.json';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faEdit} from '@fortawesome/free-solid-svg-icons';
 
 const MonCompte = () => {
   const navigation = useNavigation();
@@ -20,7 +22,6 @@ const MonCompte = () => {
   const [token, setToken] = useState<string | null>('');
   const [user, setUser] = useState<any>({});
   const [uuid, setUuid] = useState<string>(v4.v4());
-
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('token');
@@ -99,6 +100,8 @@ const MonCompte = () => {
   useFocusEffect(
     React.useCallback(() => {
       getUserData();
+      console.log(user.token);
+      console.log(AsyncStorage.getItem('token'));
     }, []),
   );
 
@@ -109,7 +112,6 @@ const MonCompte = () => {
           <Image source={logoLogout} style={styles.logoLogout} />
         </TouchableOpacity>
         <View style={styles.containerProfile}>
-          <Text style={styles.title}>Profile</Text>
           <View style={{position: 'relative'}}>
             <Image
               source={
@@ -119,8 +121,14 @@ const MonCompte = () => {
               }
               style={styles.imageProfile}
             />
-            <TouchableOpacity onPress={uploadImage}>
-              <Image source={iconEdit} style={styles.editIcon} />
+            <TouchableOpacity
+                style={styles.editIcon}
+                onPress={uploadImage}>
+              <FontAwesomeIcon
+                size={32}
+                icon={faEdit}
+                color={'white'}
+              />
             </TouchableOpacity>
           </View>
           <Text style={styles.name}>

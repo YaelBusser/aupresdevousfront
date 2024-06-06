@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {secondaryColor, tertiaryColor} from '../../../../styles/main';
+import {primaryFontSemiBold, secondaryColor, tertiaryColor} from '../../../../styles/main';
 
 const styles = StyleSheet.create({
   content: {
@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   title: {
-    fontSize: 32,
+    fontSize: 24,
+    fontFamily: primaryFontSemiBold,
     color: 'black',
     width: '90%',
     marginBottom: 20,

@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {primaryFontBold, primaryFontMedium, primaryFontRegular} from "../../../../styles/main";
 
 const styles = StyleSheet.create({
   container: {
@@ -10,11 +11,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'left',
     width: '100%',
     color: '#1E232C',
+    fontFamily: primaryFontBold,
   },
   input: {
     width: '100%',
@@ -25,10 +26,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 20,
     marginBottom: 10,
+    fontFamily: primaryFontMedium,
   },
   error: {
     color: 'red',
     marginBottom: 10,
+    fontFamily: primaryFontBold,
   },
 });
 

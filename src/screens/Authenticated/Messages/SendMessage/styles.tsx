@@ -1,5 +1,11 @@
 import {StyleSheet} from 'react-native';
-import {primaryColor} from '../../../../styles/main';
+import {
+  primaryColor,
+  primaryFontLight,
+  primaryFontRegular,
+  tertiaryFontLight,
+  tertiaryFontRegular
+} from '../../../../styles/main';
 const styles = StyleSheet.create({
   content: {
     minHeight: '100%',
@@ -51,8 +57,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginTop: 20,
   },
+  dateMessage: {
+    color: 'grey',
+    fontFamily: tertiaryFontLight,
+  },
   textMessage: {
     color: 'black',
+    fontFamily: tertiaryFontRegular,
   },
   blockMessage: {
     width: 'auto',
@@ -60,8 +71,8 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     maxWidth: '90%',
     backgroundColor: 'rgba(33, 176, 213, 0.1)',
-    padding: 20,
-    paddingTop: 10,
+    padding: 10,
+    paddingHorizontal: 20,
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
     borderBottomStartRadius: 30,
@@ -73,8 +84,8 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     maxWidth: '90%',
     backgroundColor: 'rgba(33, 176, 213, 0.1)',
-    padding: 20,
-    paddingTop: 10,
+    padding: 10,
+    paddingHorizontal: 20,
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
     borderBottomEndRadius: 30,
@@ -110,19 +121,22 @@ const styles = StyleSheet.create({
   },
   userWriting: {
     textAlign: 'left',
+    color: 'grey',
+    fontFamily: primaryFontLight,
   },
   input: {
     width: 270,
     height: 'auto',
     backgroundColor: 'transparent',
     borderRadius: 10,
+    color: 'black',
   },
   blockInputIconSend: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#E8ECF4',
+    backgroundColor: '#F2F2F2',
     height: 'auto',
     maxHeight: 150,
     width: '100%',

@@ -153,9 +153,7 @@ const DetailsMonAnnonce = ({navigation}: any) => {
             <Image
               source={{
                 uri:
-                  imageUri !== ''
-                    ? imageUri
-                    : `${env.API}/${annonce?.image}`,
+                  imageUri !== '' ? imageUri : `${env.API}/${annonce?.image}`,
               }}
               style={styles.couverture}
               blurRadius={isEditing ? 1 : 0}

@@ -1,5 +1,11 @@
 import {StyleSheet} from 'react-native';
-import {primaryColor} from '../../../../styles/main';
+import {
+  primaryColor,
+  primaryFontBold,
+  primaryFontMedium,
+  primaryFontRegular,
+  primaryFontSemiBold
+} from '../../../../styles/main';
 const styles = StyleSheet.create({
   content: {
     minHeight: '100%',
@@ -29,14 +35,18 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    fontSize: 16,
+    fontFamily: primaryFontMedium,
   },
   titre: {
     fontSize: 24,
     color: 'white',
+    fontFamily: primaryFontBold,
   },
   category: {
     fontSize: 16,
     color: primaryColor,
+    fontFamily: primaryFontMedium,
   },
   blocContainer: {
     width: '100%',
@@ -64,15 +74,26 @@ const styles = StyleSheet.create({
   profileName: {
     color: 'black',
     fontSize: 16,
+    fontFamily: primaryFontRegular,
   },
   infosAnnonce: {
     width: '100%',
     marginTop: 20,
   },
+  infosUser: {
+    marginTop: 20,
+  },
+  infosUserTitle: {
+    fontSize: 20,
+    color: 'black',
+    fontFamily: primaryFontSemiBold,
+  },
   description: {
-    textAlign: 'justify',
+    textAlign: 'left',
     color: 'black',
     fontSize: 16,
+    fontFamily: primaryFontRegular,
+    lineHeight: 24,
   },
   edit: {
     width: 50,

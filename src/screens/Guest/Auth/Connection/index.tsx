@@ -4,7 +4,11 @@ import styles from './styles';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import stylesMain, {primaryColor} from '../../../../styles/main';
+import stylesMain, {
+  primaryColor,
+  primaryFontBold,
+  primaryFontRegular,
+} from '../../../../styles/main';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 import env from '../../../../../env.json';
@@ -55,7 +59,7 @@ export default function Login({navigation}: any) {
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
-        placeholderTextColor={'black'}
+        placeholderTextColor={'grey'}
       />
       <View style={{width: '100%'}}>
         <TextInput
@@ -64,7 +68,7 @@ export default function Login({navigation}: any) {
           value={password}
           onChangeText={setPassword}
           secureTextEntry={!isPasswordVisible}
-          placeholderTextColor={'black'}
+          placeholderTextColor={'grey'}
         />
         <TouchableOpacity
           style={{
@@ -94,6 +98,7 @@ export default function Login({navigation}: any) {
           fontSize: 16,
           position: 'absolute',
           bottom: 20,
+          fontFamily: primaryFontRegular,
         }}>
         Vous n’avez pas de compte ?{' '}
         <Text
@@ -103,6 +108,7 @@ export default function Login({navigation}: any) {
             textDecorationStyle: 'solid',
             textDecorationLine: 'underline',
             textDecorationColor: primaryColor,
+            fontFamily: primaryFontBold,
           }}>
           Inscrivez-vous
         </Text>

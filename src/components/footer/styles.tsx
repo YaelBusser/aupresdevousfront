@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import stylesMain from '../../styles/main';
+import stylesMain, {primaryFontRegular} from '../../styles/main';
 
 const styles = StyleSheet.create({
   containerFooter: {
@@ -42,11 +42,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 10,
-    fontFamily: 'Arial',
+    fontFamily: primaryFontRegular,
   },
-  textActive: {
-    fontWeight: 'bold',
-  },
+  textActive: {},
 });
 
 export default styles;

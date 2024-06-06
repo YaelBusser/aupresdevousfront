@@ -1,5 +1,12 @@
 import {StyleSheet} from 'react-native';
-import {primaryColor, primaryFont, secondaryColor} from '../../../../styles/main';
+import {
+  primaryColor,
+  primaryFontLight,
+  primaryFontMedium,
+  primaryFontRegular,
+  primaryFontSemiBold,
+  secondaryColor,
+} from '../../../../styles/main';
 
 const styles = StyleSheet.create({
   containerContent: {
@@ -15,23 +22,38 @@ const styles = StyleSheet.create({
     width: '75%',
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: 10,
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 24,
+    fontFamily: primaryFontSemiBold,
     color: 'black',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   label: {
     fontSize: 16,
+    fontFamily: primaryFontSemiBold,
+    color: 'black',
     marginBottom: 5,
+  },
+  textCat: {
+    fontSize: 16,
+    fontFamily: primaryFontLight,
+    color: 'black',
   },
   textArea: {
     height: 'auto',
-    backgroundColor: '#E8ECF4',
-    paddingHorizontal: 8,
     borderRadius: 10,
+    backgroundColor: '#F7F8F9',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#E8ECF4',
+    paddingHorizontal: 20,
+    padding: 20,
+    textAlignVertical: 'top',
+    marginBottom: 20,
+    color: 'black',
+    fontFamily: primaryFontMedium,
   },
   imageUpload: {
     height: 150,
@@ -59,7 +81,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: secondaryColor,
+    backgroundColor: 'transparent',
     borderRadius: 50,
   },
   icon: {
@@ -68,8 +90,7 @@ const styles = StyleSheet.create({
   },
   categoryLabel: {
     color: 'black',
-    fontFamily: primaryFont,
-    fontWeight: 'bold',
+    fontFamily: primaryFontRegular,
   },
   blockImage: {
     width: '100%',
@@ -87,14 +108,22 @@ const styles = StyleSheet.create({
     gap: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3F8FE',
+    backgroundColor: 'white',
     borderRadius: 50,
     paddingRight: 15,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0,
+    shadowRadius: 3.05,
+    elevation: 10,
   },
   listCategories: {
     display: 'flex',
     flexDirection: 'row',
-    gap: 5,
+    gap: 10,
     flexWrap: 'wrap',
     marginBottom: 20,
     marginTop: 20,
@@ -113,7 +142,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 5,
     borderRadius: 10,
-    fontWeight: 'bold',
+    fontFamily: primaryFontRegular,
   },
   blocButtonsImage: {
     display: 'flex',
@@ -123,6 +152,29 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 10,
     marginBottom: 50,
+  },
+  blockButtonAddImage: {
+    width: '100%',
+    height: 100,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#E8ECF4',
+    borderRadius: 10,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  buttonAddImage: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    gap: 10,
+  },
+  buttonAddImageText: {
+    textAlign: 'center',
+    color: 'black',
+    fontFamily: primaryFontMedium,
+    fontSize: 14,
   },
 });
 

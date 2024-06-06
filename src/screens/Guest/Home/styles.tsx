@@ -1,6 +1,12 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {primaryColor, primaryFont} from '../../../styles/main';
+import {
+  primaryColor,
+  primaryFontBold,
+  primaryFontLight,
+  primaryFontRegular, secondaryFontMedium,
+  secondaryFontRegular, tertiaryFontBold
+} from '../../../styles/main';
 
 const styles = StyleSheet.create({
   imageBackground: {
@@ -49,13 +55,17 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontFamily: primaryFont,
+    fontFamily: secondaryFontRegular,
   },
   title: {
-    fontSize: 16,
+    fontSize: 24,
+    marginBottom: 10,
+    fontFamily: secondaryFontRegular,
   },
   subTitle: {
     fontSize: 34,
+    fontFamily: secondaryFontMedium,
+    letterSpacing: 2,
   },
   blockButtons: {
     alignItems: 'center',
@@ -70,9 +80,9 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   AuthFormButtonText: {
-    fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: primaryFont,
+    fontFamily: tertiaryFontBold,
+    fontSize: 16,
     padding: 20,
     color: 'white',
   },

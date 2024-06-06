@@ -3,7 +3,11 @@ import {View, Text, TextInput, TouchableOpacity, Alert} from 'react-native';
 import styles from './styles';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
-import {primaryColor} from '../../../../styles/main';
+import stylesMain, {
+  primaryColor,
+  primaryFontBold,
+  primaryFontRegular,
+} from '../../../../styles/main';
 import env from '../../../../../env.json';
 
 export default function Register() {
@@ -72,12 +76,14 @@ export default function Register() {
         placeholder="Nom"
         value={lastName}
         onChangeText={setLastName}
+        placeholderTextColor={'grey'}
       />
       <TextInput
         style={styles.input}
         placeholder="Prénom"
         value={firstName}
         onChangeText={setFirstName}
+        placeholderTextColor={'grey'}
       />
       <TextInput
         style={styles.input}
@@ -85,6 +91,7 @@ export default function Register() {
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
+        placeholderTextColor={'grey'}
       />
       <TextInput
         style={styles.input}
@@ -92,6 +99,7 @@ export default function Register() {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
+        placeholderTextColor={'grey'}
       />
       <TextInput
         style={styles.input}
@@ -99,10 +107,13 @@ export default function Register() {
         value={confirmPassword}
         onChangeText={setConfirmPassword}
         secureTextEntry
+        placeholderTextColor={'grey'}
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>S'inscrire</Text>
+      <TouchableOpacity
+        style={[stylesMain.button, {height: 60}]}
+        onPress={handleRegister}>
+        <Text style={stylesMain.buttonText}>S'inscrire</Text>
       </TouchableOpacity>
       <Text
         style={{
@@ -110,6 +121,7 @@ export default function Register() {
           fontSize: 16,
           position: 'absolute',
           bottom: 20,
+          fontFamily: primaryFontRegular,
         }}>
         Vous avez déjà un compte ?{' '}
         <Text
@@ -119,6 +131,7 @@ export default function Register() {
             textDecorationStyle: 'solid',
             textDecorationLine: 'underline',
             textDecorationColor: primaryColor,
+            fontFamily: primaryFontBold,
           }}>
           Connectez-vous
         </Text>

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {primaryColor} from '../../../styles/main';
+import {primaryColor, primaryFontMedium, primaryFontSemiBold} from '../../../styles/main';
 const styles = StyleSheet.create({
   content: {
     marginTop: 100,
@@ -13,13 +13,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 24,
     color: 'black',
+    fontFamily: primaryFontSemiBold,
   },
   containerItems: {
     width: '100%',
-    marginTop: 20,
   },
   containerItem: {
     width: '100%',
@@ -35,13 +34,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   titleItem: {
-    fontSize: 22,
+    fontSize: 18,
     color: 'black',
-    maxWidth: 250,
+    maxWidth: 230,
+    fontFamily: primaryFontMedium,
   },
   categoryItem: {
     color: primaryColor,
-    fontSize: 16,
+    fontSize: 12,
+    fontFamily: primaryFontMedium,
   },
   imageItem: {
     width: 150,

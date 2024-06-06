@@ -9,7 +9,13 @@ import {
 } from 'react-native';
 
 import styles from './styles.tsx';
-import stylesMain, {primaryColor} from '../../../styles/main';
+import stylesMain, {
+  primaryColor,
+  primaryFontBold, primaryFontMedium, primaryFontRegular,
+  primaryFontSemiBold,
+  tertiaryFontBold,
+  tertiaryFontRegular,
+} from '../../../styles/main';
 import {Searchbar, RadioButton} from 'react-native-paper';
 import Header from '../../../components/header';
 import Footer from '../../../components/footer';
@@ -109,6 +115,8 @@ export default function Home({route, navigation}: any) {
             iconColor={'black'}
             clearIcon={{uri: 'https://i.ibb.co/DzGfPqL/cross-23.png'}}
             icon={{uri: 'https://i.ibb.co/b5W0rzw/search.png'}}
+            placeholderTextColor={'grey'}
+            inputStyle={{fontFamily: tertiaryFontRegular}}
           />
           <View style={styles.blockCategories}>
             <TouchableOpacity
@@ -123,7 +131,9 @@ export default function Home({route, navigation}: any) {
                 ]}>
                 <Image source={iconTout} style={styles.icon} />
               </View>
-              <Text>Tout</Text>
+              <Text style={{fontFamily: primaryFontSemiBold, color: 'black'}}>
+                Tout
+              </Text>
             </TouchableOpacity>
             {allCategories.slice(0, 3).map((cat: any, index) => (
               <TouchableOpacity
@@ -140,7 +150,11 @@ export default function Home({route, navigation}: any) {
                     ]}>
                     <Image source={{uri: cat.icon}} style={styles.icon} />
                   </View>
-                  <Text key={index}>{cat.label}</Text>
+                  <Text
+                    key={index}
+                    style={{fontFamily: primaryFontSemiBold, color: 'black'}}>
+                    {cat.label}
+                  </Text>
                 </View>
               </TouchableOpacity>
             ))}
@@ -150,7 +164,9 @@ export default function Home({route, navigation}: any) {
               <View style={styles.blockIcon}>
                 <Image source={iconAutres} style={styles.icon} />
               </View>
-              <Text>Tout</Text>
+              <Text style={{fontFamily: primaryFontSemiBold, color: 'black'}}>
+                Autres
+              </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.filterContainer}>
@@ -160,15 +176,25 @@ export default function Home({route, navigation}: any) {
               <View style={styles.filters}>
                 <View style={styles.radioButtonContainer}>
                   <RadioButton value="Tous" color={primaryColor} />
-                  <Text onPress={() => filterAds('Tous')}>Tous</Text>
+                  <Text
+                    onPress={() => filterAds('Tous')}
+                    style={{fontFamily: primaryFontMedium, color: 'black'}}>
+                    Tous
+                  </Text>
                 </View>
                 <View style={styles.radioButtonContainer}>
                   <RadioButton value="Demandes" color={primaryColor} />
-                  <Text onPress={() => filterAds('Demandes')}>Demandes</Text>
+                  <Text
+                    onPress={() => filterAds('Demandes')}
+                    style={{fontFamily: primaryFontMedium, color: 'black'}}>
+                    Demandes
+                  </Text>
                 </View>
                 <View style={styles.radioButtonContainer}>
                   <RadioButton value="Prestations" color={primaryColor} />
-                  <Text onPress={() => filterAds('Prestations')}>
+                  <Text
+                    onPress={() => filterAds('Prestations')}
+                    style={{fontFamily: primaryFontMedium, color: 'black'}}>
                     Prestations
                   </Text>
                 </View>
@@ -215,7 +241,7 @@ export default function Home({route, navigation}: any) {
                               idAnnonce: item.id,
                             })
                           }>
-                          <Text style={stylesMain.buttonText}>
+                          <Text style={[stylesMain.buttonText, {fontFamily: primaryFontRegular, fontSize: 14}]}>
                             Voir l'annonce
                           </Text>
                         </TouchableOpacity>

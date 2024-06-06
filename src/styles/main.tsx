@@ -4,7 +4,17 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 export const primaryColor = '#1EAFD5';
 export const secondaryColor = '#F3F8FE';
 export const tertiaryColor = '#A6E2F2';
-export const primaryFont = 'Arial';
+export const primaryFontRegular = 'Urbanist-Regular';
+export const primaryFontBold = 'Urbanist-Bold';
+export const primaryFontSemiBold = 'Urbanist-SemiBold';
+export const primaryFontMedium = 'Urbanist-Medium';
+export const primaryFontLight = 'Urbanist-Light';
+export const secondaryFontMedium = 'Montserrat-Medium';
+export const secondaryFontRegular = 'Montserrat-Regular';
+export const tertiaryFontRegular = 'Poppins-Regular';
+export const tertiaryFontBold = 'Poppins-Bold';
+export const tertiaryFontLight = 'Poppins-Light';
+
 
 const stylesMain = StyleSheet.create({
   body: {
@@ -14,8 +24,8 @@ const stylesMain = StyleSheet.create({
   primaryColor: {
     color: primaryColor,
   },
-  primaryFont: {
-    fontFamily: primaryFont,
+  primaryFontRegular: {
+    fontFamily: primaryFontRegular,
   },
   button: {
     width: '100%',
@@ -35,15 +45,21 @@ const stylesMain = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontWeight: 'bold',
+    fontFamily: primaryFontBold,
+    fontSize: 16,
   },
   input: {
     width: '100%',
-    height: 40,
-    backgroundColor: '#E8ECF4',
+    height: 60,
+    backgroundColor: '#F7F8F9',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#E8ECF4',
     borderRadius: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
+    padding: 10,
     marginBottom: 20,
+    color: 'black',
   },
   textArea: {
     height: 'auto',
@@ -68,6 +84,7 @@ const stylesMain = StyleSheet.create({
   },
   errorText: {
     color: 'red',
+    fontFamily: primaryFontRegular,
   },
 });
 
